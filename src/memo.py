@@ -28,6 +28,10 @@ def _sort_by_week(rows: List[Dict[str, object]]) -> List[Dict[str, object]]:
 
 
 def _build_recommendation(row: Dict[str, object]) -> str | None:
+    # Only generate recommendations for risk-flagged rows to avoid false signals.
+    if not bool(row["risk_flag"]):
+        return None
+
     crop_canonical = str(row["crop_canonical"])
     week_iso = row["week_iso"]
     shortage_pct = float(row["shortage_pct"])
@@ -67,7 +71,7 @@ def generate_weekly_memo(
         "AGRI-AI WEEKLY PLANNING MEMO",
         f"Season: {current_year}  |  Generated: {current_day.isoformat()}",
         "",
-        "--- HIGH RISK THIS WEEK ---",
+        "--- HIGH RISK: FULL SEASON ---",
     ]
 
     lines.extend([_format_risk_line(row) for row in risk_rows] or ["  None"])
