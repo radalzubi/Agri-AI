@@ -1,54 +1,71 @@
-# Fieldline
+# Agri-AI
 
-Fieldline is an AI-native agricultural supply planning startup focused on one narrow problem:
-turning buyer demand into pre-season production decisions before inventory exists.
+Agri-AI is an agricultural supply planning venture focused on one narrow problem:
+helping farms, aggregators, and buyer-facing produce operators decide what to produce, when to produce it, and how much to commit before inventory exists.
 
-This repository is the operating workspace for:
+## Problem
 
-- business strategy and venture positioning
-- pilot design and field execution
-- product definition
-- research and market validation
-- reusable prompts for Claude and Codex
-- Linear planning structure
+Specialty-crop supply chains break before harvest.
 
-## Current Wedge
+Buyer demand is uneven.
+Grower commitments are made with incomplete information.
+Aggregators absorb the mismatch through shortages, emergency buys, substitutions, and waste.
 
-The initial target is not the individual farmer.
-The target is the buyer-facing aggregator, food hub, or regional produce operator that must translate uncertain buyer demand into grower commitments.
+Most current tools handle inventory, ordering, or farm operations after supply is already in motion.
+Agri-AI is focused earlier than that:
+pre-season and in-season production planning.
 
-Core outcome:
+## Who It Is For
 
-- reduce supply shortfalls
-- reduce overplanting and waste
-- improve fill rate on planned demand
-- lower emergency buy activity
+Primary target:
 
-## What We Are Building First
+- regional food hubs
+- specialty produce aggregators
+- buyer-facing produce distributors
+- local sourcing operators coordinating multiple growers for recurring buyers
 
-The first version is a planning layer, not a full ERP and not a generic AI assistant.
+Secondary users:
 
-Initial scope:
+- growers participating in those supply networks
+- operators managing buyer demand, grower capacity, and seasonal supply risk
 
-- collect buyer demand history
-- map demand by crop and week
-- compare demand against grower capacity
-- flag shortage and overage risk before planting
-- generate weekly operator-facing recommendations
+## What Makes It Different
+
+Agri-AI is not a generic ERP.
+It is not warehouse software.
+It is not a post-harvest traceability system.
+
+It is a planning layer that helps operators answer:
+
+- what should be grown
+- how much should be committed
+- when the commitment should happen
+- where shortage and overage risk will appear
+
+## System Of Work
+
+This repository is the source of truth for venture work.
+
+- GitHub = source of truth for business docs, research, strategy, product scope, and prompts
+- Linear = task coordination and execution tracking
+- Codex = builder, reviewer, document structurer, and repo maintainer
+- Claude = researcher, refiner, issue executor, and synthesis engine
 
 ## Repository Layout
 
-- `docs/business/` venture framing, economics, and strategy
-- `docs/pilot/` pilot plans, execution notes, and success criteria
-- `docs/product/` product scope, workflows, and requirements
-- `docs/research/` market, customer, and competitor findings
-- `prompts/claude/` execution prompts for Claude
-- `prompts/codex/` review and implementation prompts for Codex
-- `linear/` board structure and workstream organization
+- `docs/business/` venture framing, economics, GTM, and operating direction
+- `docs/research/` market notes, competitor analysis, and validation findings
+- `docs/pilot/` pilot design and execution planning
+- `docs/product/` MVP boundaries and product decisions
+- `prompts/claude/` reusable execution prompts for Claude
+- `prompts/codex/` reusable review and repo-structuring prompts for Codex
+- `linear/` Linear workflow and board structure
 
-## Operating Principle
+## Working Principle
 
-Do not overbuild.
+Keep the company thesis sharp and the repo clean.
 
-If a workflow can be validated with spreadsheets, operator judgment, and a lightweight interface, validate it there first.
-Only productize after a real customer pays for the outcome.
+- prefer execution-ready docs over long essays
+- validate with manual workflows before building software
+- avoid bloated AI claims early
+- keep all strategy tied to a real customer wedge

@@ -138,5 +138,6 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Local Codex app metadata
+# Local machine metadata
+.DS_Store
 .claude/

@@ -1,120 +1,60 @@
 # Linear Board Structure
 
-## Goal
+## Purpose
 
-Linear should reflect how Fieldline is actually being built:
+Linear should coordinate active work.
+GitHub should hold durable knowledge.
 
-- customer-first
-- pilot-first
-- narrow product scope
-- evidence before expansion
-
-## Recommended Team Structure
-
-Use one workspace with the following top-level streams:
-
-### Customer
-
-Purpose:
-
-- discovery
-- outreach
-- qualification
-- pilot conversion
-
-Typical issues:
-
-- build target account list
-- schedule discovery calls
-- document buyer and aggregator pain patterns
-- convert design partner to paid pilot
-
-### Pilot
-
-Purpose:
-
-- Indiana pilot execution
-- data collection
-- weekly operating cadence
-
-Typical issues:
-
-- ingest historical order history
-- normalize crop and SKU names
-- collect grower capacity assumptions
-- ship weekly risk memo
-
-### Product
-
-Purpose:
-
-- operator-facing planning workflows
-- reporting
-- internal tooling that supports live pilots
-
-Typical issues:
-
-- build demand-by-week dashboard
-- create shortage and overage scoring logic
-- generate grower commitment view
-- add scenario planner
-
-### Research
-
-Purpose:
-
-- competitor analysis
-- market validation
-- pricing evidence
-- buyer and grower workflow research
-
-Typical issues:
-
-- compare food hub software vendors
-- estimate aggregator willingness to pay
-- map Indiana institutional buyer segments
-
-### Ops
-
-Purpose:
-
-- internal systems
-- documentation
-- fundraising support
-- execution discipline
-
-Typical issues:
-
-- maintain venture overview
-- update pilot scorecard
-- prepare investor FAQ
-
-## Suggested Initiative Ladder
-
-Use initiatives for major outcomes:
-
-- Win first paid pilot
-- Deliver Indiana pilot successfully
-- Convert pilot into annual contract
-- Productize planning workflow
-
-## Suggested Status Flow
+## Recommended States
 
 - Backlog
 - Ready
 - In Progress
 - Blocked
-- In Review
+- Review
 - Done
 
-## Prioritization Rule
+## Recommended Labels
 
-Anything that helps close or serve a paying pilot outranks speculative platform work.
+- `research`
+- `pilot`
+- `product`
+- `gtm`
+- `docs`
+- `decision-needed`
+- `high-leverage`
 
-If an issue does not connect to:
+## Issue Flow
 
-- customer learning
-- pilot success
-- measurable planning value
+1. create issue from a real decision, validation step, or deliverable
+2. move to `Ready` only when scope is clear
+3. execute in `In Progress`
+4. move to `Review` when output is ready for critique
+5. convert durable output into the repo
+6. close only after the result is captured in GitHub if it matters long-term
 
-it should probably not be on the board yet.
+## What Claude Handles
+
+- research tasks
+- strategy refinement
+- issue-level synthesis
+- first-pass drafts
+- explicit assumptions and next steps
+
+## What Codex Handles
+
+- critical review of Claude output
+- repo structure and permanent documentation
+- follow-on task identification
+- quality control on prompts and docs
+
+## Board Rule
+
+If the work does not improve:
+
+- customer clarity
+- pilot execution
+- product boundary definition
+- pricing or GTM decisions
+
+it probably should not be prioritized.

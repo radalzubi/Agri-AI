@@ -1,97 +1,77 @@
 # Venture Overview
 
-## Company Thesis
+## Concept Summary
 
-Regional agricultural supply chains break before harvest, not after harvest.
+Agri-AI is an agricultural supply planning venture that helps operators decide what should be produced, when it should be produced, and how much should be committed before inventory exists.
 
-Buyer demand shows up unevenly.
-Growers plant with partial information.
-Aggregators absorb the mismatch.
-The result is avoidable shortage, emergency procurement, waste, and lost margin.
+The initial wedge is not generic farm software.
+It is a planning layer for buyer-facing aggregators and produce operators managing multiple growers.
 
-Fieldline exists to close that gap.
+## Core Problem
 
-## Initial Customer
+Specialty-crop supply chains are planned with weak coordination.
 
-Primary customer:
+- buyers communicate demand unevenly
+- growers commit production with incomplete visibility
+- aggregators absorb the mismatch
+
+The result:
+
+- shortages
+- emergency buys
+- substitutions
+- overproduction
+- margin loss
+
+## Target Customer
+
+Primary target:
 
 - regional food hub
-- specialty produce aggregator
-- local sourcing program operator
-- buyer-facing produce distributor managing multiple growers
+- produce aggregator
+- buyer-facing specialty produce distributor
+- local sourcing operator with recurring institutional or wholesale demand
 
-Not the first customer:
+Why this customer first:
 
-- independent small farm
-- generic commodity operator
-- lender
-
-## Core Product
-
-Fieldline is a pre-season agricultural supply planning layer.
-
-It helps operators answer:
-
-- what should be grown
-- how much should be grown
-- when should it be planted or committed
-- where supply risk is likely to appear
-
-Inputs:
-
-- buyer order history
-- forecast demand by crop and week
-- grower capacity and acreage assumptions
-- seasonality
-- crop risk
-- logistics constraints
-
-Outputs:
-
-- demand coverage view
-- grower commitment plan
-- shortage and overage alerts
-- weekly operator recommendations
+- clearer pain
+- measurable economic downside
+- higher willingness to pay than individual farms
+- natural position between buyer demand and grower supply
 
 ## Why Now
 
-- local and regional buyers need more reliable supply after repeated disruption
-- specialty crop operators still run planning through spreadsheets, calls, and memory
-- current software handles ordering and inventory better than pre-season planning
-- climate and labor volatility make static planning weaker every year
+- climate volatility makes static planning weaker
+- local and regional food programs need more reliable supply
+- most current tools handle orders and operations after commitments are already made
+- many operators still manage planning through spreadsheets, calls, and institutional memory
 
-## Wedge
+## What Makes It Different
 
-Own the planning layer that sits between buyer demand and grower commitments.
+Agri-AI sits upstream of inventory and fulfillment tools.
 
-Do not start with:
+It is designed to support decisions such as:
 
-- full farm management
-- full logistics orchestration
-- marketplace liquidity claims
-- embedded finance
+- which crops are undercommitted
+- which crops are overcommitted
+- which weeks carry supply risk
+- where the operator should adjust grower commitments
 
-## Business Model
+## Likely Business Model Direction
 
 Phase 1:
 
-- paid pilot per season
-- services-led implementation
-- annual software plus analytics contract after pilot
+- paid pilots
+- services-led planning support
+- annual software plus analytics contract after validation
 
-Illustrative early pricing:
+Likely early pricing:
 
 - pilot: $5,000 to $15,000 per season
-- annual contract: $12,000 to $40,000 depending on buyer volume and grower complexity
+- annual contract: $12,000 to $40,000 depending on operator complexity
 
-## Metrics That Matter
+Longer term:
 
-- planned demand coverage percentage
-- fill rate
-- emergency buy spend
-- overplant and waste percentage
-- gross margin protected
-
-## Near-Term Goal
-
-Get 3 paying design partners that already manage multi-grower supply and have measurable shortage pain.
+- recurring software revenue
+- optional data products
+- stronger commitment workflows between buyers and grower networks

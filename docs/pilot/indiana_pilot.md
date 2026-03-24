@@ -1,103 +1,86 @@
 # Indiana Pilot
 
-## Objective
+## Pilot Objective
 
-Prove that a buyer-backward planning layer can improve pre-season coordination for an Indiana-based aggregator or regional produce operator.
+Prove that Agri-AI can improve pre-season and in-season planning for a buyer-facing agricultural operator in Indiana by making supply risk visible before inventory exists.
 
-The pilot should answer one question:
+## Ideal First Customers
 
-Can Fieldline materially improve supply planning before planting decisions are locked in?
+Target one of these profiles:
 
-## Ideal Pilot Customer
+- Indiana food hub serving schools, hospitals, or institutional buyers
+- regional produce distributor with a local sourcing program
+- multi-grower aggregator managing recurring buyer demand
 
-Target one of the following:
-
-- Indiana food hub serving schools, hospitals, or institutions
-- regional produce distributor with a local grower program
-- multi-grower aggregator coordinating seasonal supply for recurring buyers
-
-Customer selection criteria:
+Selection criteria:
 
 - at least 10 active growers or suppliers
-- at least 10 recurring buyers or a meaningful institutional program
-- historical order data exists in any format
-- recurring issues with shortages, substitutions, or overproduction
-- one operational decision-maker willing to work weekly
+- recurring seasonal buyer demand
+- historical order data available in any format
+- visible issues with shortages, substitutions, emergency buys, or overproduction
+- one decision-maker willing to meet weekly
 
-## Data Required
+## Data To Collect
 
-Minimum dataset:
+Minimum data:
 
-- last 12 to 24 months of order history by crop, customer, quantity, and week
-- list of unfilled or substituted items
-- grower roster with crops, expected volume, and timing
-- current crop calendar or production assumptions
-- buyer requirements for pack size, grade, and delivery window
+- 12 to 24 months of order history by crop, customer, quantity, and week
+- unfilled orders or substitution history
+- grower roster with crop timing and expected capacity
+- crop calendar or planting assumptions
+- buyer requirements such as pack size, grade, and delivery window
 
-Nice to have:
+Useful optional data:
 
 - emergency purchase history
 - margin data
 - spoilage or rejection data
 - route and delivery constraints
 
-## What Fieldline Delivers
+## Weekly Output
 
-Weekly deliverables during pilot:
+Each week the pilot should produce:
 
 - demand-by-crop and week view
 - expected supply coverage view
 - shortage and overage risk report
-- recommended grower commitment adjustments
-- issues list requiring buyer or grower action
+- operator recommendations for grower or buyer action
+- open issues requiring follow-up
 
-Pre-season deliverables:
+Pre-season output should also include:
 
-- baseline demand forecast
-- acreage or volume planning assumptions
-- buyer demand concentration analysis
-- top five planning risks for the season
-
-## Success Criteria
-
-The pilot is successful if it produces at least two of the following:
-
-- 10-point improvement in planned demand coverage
-- 15% reduction in emergency buys
-- measurable reduction in unfilled lines or substitutions
-- measurable reduction in overplant or unsold product
-- operator reports at least 4 hours per week saved in planning effort
-
-## Pilot Cadence
-
-Week 1:
-
-- data collection
-- cleanup
 - baseline demand map
+- top demand concentration risks
+- first-pass grower commitment plan
 
-Week 2:
+## Success Metrics
 
-- grower capacity map
-- first risk report
-- decision review with operator
+Pilot success should be measured through at least two of the following:
 
-Week 3 onward:
+- improvement in planned demand coverage
+- reduction in emergency buys
+- reduction in unfilled lines or substitutions
+- reduction in overproduction or unsold volume
+- operator time saved in weekly planning
 
-- weekly planning memo
-- updated shortages and overages
-- manual recommendation loop
+## Outreach Angle
 
-## Pilot Constraints
+Pitch the pilot as a decision-support workflow, not a heavy software rollout.
 
-- no full system integration required
-- no mobile app required
-- no autonomous AI claims
-- manual analyst support is acceptable
+Use this angle:
 
-## Exit Condition
+We help you turn buyer demand into grower commitments before planting and flag shortage risk early enough to act.
 
-At pilot end, convert the customer into:
+Avoid positioning it as:
 
-- annual software and analytics contract
-- or terminate if measurable value is not proven
+- a generic AI platform
+- a replacement for all existing systems
+- a long integration project
+
+## Immediate Next Steps
+
+1. build a target list of Indiana operators matching the wedge
+2. secure discovery calls with the operator running planning today
+3. request a sample of historical order data
+4. build the first manual demand and supply risk view
+5. convert one operator into a paid pilot
