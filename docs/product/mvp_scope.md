@@ -18,6 +18,14 @@ Run: `python3 -m src.main --data-dir data --output-dir output`
 
 Next phase: local operator dashboard (Streamlit) on top of this pipeline. See `prompts/codex/dashboard_builder.md`.
 
+Dashboard system docs:
+
+- `docs/product/dashboard_system.md`
+- `docs/product/information_architecture.md`
+- `docs/product/user_roles_and_workflows.md`
+- `docs/product/module_specs.md`
+- `docs/product/mvp_dashboard_scope.md`
+
 ---
 
 ## MVP Goal
