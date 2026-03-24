@@ -10,7 +10,13 @@ def build_gap_analysis(
     supply_rows: List[Dict[str, object]],
     coverage_threshold: float,
 ) -> List[Dict[str, object]]:
-    """Build crop-week gap analysis for all demand-present rows."""
+    """Build crop-week gap analysis for all demand-present rows.
+
+    Note: rows where supply exists but demand is zero are not included.
+    If a grower has capacity for a crop with no matching buyer orders,
+    that crop-week will not appear in the output. Review grower_capacity
+    inputs if expected crops are missing from gap_analysis.csv.
+    """
 
     supply_lookup: Dict[Tuple[str, int, int], float] = {
         (str(row["crop_canonical"]), int(row["week_iso"]), int(row["year"])): float(

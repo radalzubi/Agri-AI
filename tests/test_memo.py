@@ -38,7 +38,7 @@ def test_generate_weekly_memo_orders_risk_rows_by_week() -> None:
         today=date(2025, 5, 10),
     )
 
-    high_risk_section = memo.split("--- HIGH RISK THIS WEEK ---\n", maxsplit=1)[1].split(
+    high_risk_section = memo.split("--- HIGH RISK: FULL SEASON ---\n", maxsplit=1)[1].split(
         "\n\n--- UPCOMING RISK (NEXT 4 WEEKS) ---",
         maxsplit=1,
     )[0]

@@ -1,5 +1,25 @@
 # MVP Scope
 
+## Status
+
+Phase 1 pipeline complete. A working Python CSV-in / report-out pipeline exists in `src/`.
+
+Built:
+- `src/ingest.py` — load and validate CSV inputs, collapse duplicates
+- `src/normalize.py` — SKU normalization via lookup table
+- `src/aggregate.py` — demand and supply aggregation by crop and week
+- `src/gap.py` — coverage ratio, shortage/overage math, risk flagging
+- `src/memo.py` — operator-facing plain-text weekly planning memo
+- `src/main.py` — CLI entry point orchestrating the full pipeline
+
+Outputs: `gap_analysis.csv`, `demand_by_crop_week.csv`, `supply_by_crop_week.csv`, `unresolved_skus.csv`, `weekly_memo.txt`
+
+Run: `python3 -m src.main --data-dir data --output-dir output`
+
+Next phase: local operator dashboard (Streamlit or lightweight web UI) on top of this pipeline.
+
+---
+
 ## MVP Goal
 
 Build the smallest useful planning product for an operator managing buyer demand and grower commitments before the season is locked.
