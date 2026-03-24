@@ -77,3 +77,13 @@ planning before commitments are locked.
 
 The near-term integration path is additive:
 Agri-AI outputs should feed into what operators already track in spreadsheets or existing commerce systems, not try to replace them immediately.
+
+## Sources
+
+- [Local Line for food hubs](https://www.localline.co/customers/food-hubs)
+- [Local Line buyer pricing](https://www.localline.co/buyers/pricing)
+- [Local Food Marketplace](https://home.localfoodmarketplace.com/)
+- [Forager for buyers](https://www.goforager.com/buyers)
+- [FarmERP](https://www.farmerp.com/)
+- [Produce Pro](https://www.producepro.com/)
+- [Famous Software](https://www.famous.software/)
