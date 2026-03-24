@@ -20,23 +20,18 @@ Planning is spread across:
 The problem is not that nobody plans.
 The problem is that nobody coordinates the full picture well before the season starts.
 
-## Indiana and Midwest Market Sizing
+## Indiana and Midwest Market Shape
 
-Rough estimates based on USDA Local Food research and NAFSN data. These are directional, not audited.
+The Midwest food hub and regional aggregation market is real, but not large enough to justify a broad venture thesis on its own.
 
-- Indiana has approximately 15–20 active food hubs and regional produce aggregators
-- The Midwest (IN, IL, OH, MI, WI) has approximately 100–130 food hubs total
-- Median food hub annual sales are in the range of $1M–$3M based on USDA data
-- Larger food hubs operating above $5M GMV are a minority but represent better commercial targets
+What matters more than raw count:
 
-At $10,000–$20,000 annual contract value per operator:
+- whether the operator manages recurring buyer demand
+- whether they coordinate enough growers to create planning complexity
+- whether shortages and overages are visible at the P&L level
 
-- Indiana alone: $150K–$300K ARR at full penetration
-- Midwest five-state: $1M–$2.5M ARR at reasonable penetration
-- This is not a large market on its own — it is a proving ground, not an end state
-
-National specialty crop supply chain operators (multi-state aggregators, regional distributors with local sourcing programs) represent the larger commercial opportunity.
-That market is reached after Indiana pilot credibility is established.
+Indiana should be treated as a proving ground, not a complete market case.
+If the venture works there, the next step is to expand into larger regional and multi-state specialty-crop operators.
 
 ## Why Adoption Is Hard
 
@@ -49,7 +44,7 @@ That market is reached after Indiana pilot credibility is established.
 
 ## Key Unvalidated Assumption
 
-The pricing range of $5,000–$15,000 for a pilot assumes operators connect their planning pain to a measurable dollar cost.
+The pricing range of $5,000–$15,000 for a pilot assumes operators connect planning pain to a measurable dollar cost.
 
 This assumption needs active validation.
 
@@ -68,4 +63,8 @@ Expanding before the wedge is proven in one geography will dilute execution focu
 
 The best first sale is a paid pilot tied to visible operator pain, not a broad platform contract.
 
-The pilot model also serves a diagnostic function: it reveals whether the operator's data is clean enough to work with, whether their decision-making cycle allows for weekly planning input, and whether they will actually change behavior based on output.
+The pilot also serves a diagnostic function:
+
+- is the data usable
+- does the operator actually make weekly planning decisions
+- will they change behavior based on output

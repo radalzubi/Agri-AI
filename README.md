@@ -1,7 +1,7 @@
 # Agri-AI
 
 Agri-AI is an agricultural supply planning venture focused on one narrow problem:
-helping farms, aggregators, and buyer-facing produce operators decide what to produce, when to produce it, and how much to commit before inventory exists.
+helping buyer-facing agricultural operators decide what to produce, when to produce it, and how much to commit before inventory exists.
 
 ## Problem
 
@@ -27,13 +27,11 @@ Primary target:
 Secondary users:
 
 - growers participating in those supply networks
-- operators managing buyer demand, grower capacity, and seasonal supply risk
+- planning and procurement operators managing buyer demand, grower capacity, and seasonal supply risk
 
 ## What Makes It Different
 
-Agri-AI is not a generic ERP.
-It is not warehouse software.
-It is not a post-harvest traceability system.
+Agri-AI is not a generic ERP, warehouse system, or post-harvest traceability tool.
 
 It is a planning layer that helps operators answer:
 

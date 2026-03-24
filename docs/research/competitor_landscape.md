@@ -15,28 +15,28 @@ The market already has:
 
 ### Food hub and local food commerce software
 
-- **Local Line** — multi-vendor order management, fulfillment, invoicing, and buyer portals for local food operators. Widely used by food hubs. Handles transactions after supply is committed, not before.
-- **Local Food Marketplace** — similar scope to Local Line. Order routing and hub operations. No pre-season planning layer.
-- **Barn2Door** — direct-to-consumer and wholesale ordering for farms. Farm-facing, not aggregator-facing. No demand-to-supply planning.
+- **Local Line** — multi-vendor order management, fulfillment, invoicing, and buyer portals for local food operators.
+- **Local Food Marketplace** — local food commerce and hub operations workflow.
+- **Barn2Door** — direct-to-consumer and wholesale ordering for farms.
 
-None of these tools answer what to grow or what to commit before the season starts. They manage orders against inventory that already exists.
+These tools primarily manage orders and transactions after supply is already committed or inventory is already expected.
 
 ### Buyer-side sourcing tools
 
-- **Forager** — institutional buyer sourcing platform connecting procurement to local/regional suppliers. Buyer-facing. Helps buyers find and manage local suppliers. Does not generate grower-side production plans or shortage risk views.
-- **Foodshed** — regional food sourcing and routing optimization for aggregators. Handles logistics and order flow. No pre-season planning.
+- **Forager** — buyer-side sourcing workflow for local and regional procurement.
+- **Foodshed** — sourcing, routing, and local supply workflow.
 
 ### Produce distribution and ERP
 
-- **Produce Pro** — full ERP for mid-size and large produce distributors. Covers inventory, purchasing, sales, lot tracking, and accounting. Used by regional distributors. Strong post-harvest operations. No pre-season demand-to-commitment planning.
-- **Famous Software** — comparable ERP for produce distributors. Same gap.
-- **FarmERP** — farm-level operations management. Planting records, task tracking, compliance. Grower-side only. Not operator-facing or planning-layer focused.
+- **Produce Pro** — full ERP for produce distributors.
+- **Famous Software** — ERP and produce operations software.
+- **FarmERP** — farm-level planning and operations software.
 
 ### Farm data and advisory platforms
 
-- **Farmers Business Network (FBN)** — data aggregation and benchmarking for commodity and specialty farms. Farm-facing analytics. No buyer-demand integration or aggregator-facing planning output.
-- **AgriSync** — farmer-to-advisor communication tool. Not a planning layer.
-- **Granular (Corteva)** — commodity farm management. Not relevant to specialty crop aggregators.
+- **Farmers Business Network (FBN)** — farm-facing data and benchmarking.
+- **AgriSync** — advisor and communication workflow.
+- **Granular (Corteva)** — farm management software.
 
 ### Manual workflow
 
@@ -48,11 +48,11 @@ The largest real competitor remains:
 - phone calls
 - coordinator institutional memory
 
-Most Indiana and Midwest food hubs still operate almost entirely this way. This is the default, not a gap that existing software has already filled.
+For many Indiana and Midwest operators, this remains the default planning layer.
 
 ## What Existing Tools Miss
 
-All of the above tools share the same structural gap: they operate after supply commitments are already made or after inventory already exists.
+The key structural gap across categories is that they operate after supply commitments are already made or after inventory already exists.
 
 Specifically missing across all categories:
 
@@ -63,12 +63,11 @@ Specifically missing across all categories:
 
 ## Positioning Risk
 
-Local Line is the highest adjacency risk.
+The closest adjacency risk is from whichever commerce or procurement platform already owns operator workflow.
 
-It already sits inside many food hub workflows.
-If Local Line adds a lightweight pre-season planning module, the switching cost argument weakens.
+If an incumbent adds a lightweight pre-season planning module, a weakly differentiated Agri-AI product will be squeezed quickly.
 
-Agri-AI's defensibility depends on going deeper on planning logic and operator workflow before Local Line or Forager decides to expand upstream.
+That means the company needs to go deeper on planning workflow, decision timing, and operator-specific usefulness rather than broad feature count.
 
 ## Strategic Implication
 
@@ -76,4 +75,5 @@ Agri-AI should not try to replace any adjacent tool.
 It should own one missing workflow cleanly:
 planning before commitments are locked.
 
-The near-term integration path is additive: Agri-AI outputs feed into what operators already track in Local Line or spreadsheets, not replace it.
+The near-term integration path is additive:
+Agri-AI outputs should feed into what operators already track in spreadsheets or existing commerce systems, not try to replace them immediately.
