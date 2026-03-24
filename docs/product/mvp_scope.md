@@ -20,11 +20,13 @@ Next phase: local operator dashboard (Streamlit) on top of this pipeline. See `p
 
 Dashboard system docs:
 
+- `docs/product/dashboard_vision.md`
+- `docs/product/ui_principles.md`
 - `docs/product/dashboard_system.md`
 - `docs/product/information_architecture.md`
 - `docs/product/user_roles_and_workflows.md`
 - `docs/product/module_specs.md`
-- `docs/product/mvp_dashboard_scope.md`
+- `docs/product/mvp_ui_scope.md`
 
 ---
 

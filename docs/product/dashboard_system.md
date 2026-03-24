@@ -91,6 +91,42 @@ Missing product system:
 - Financially grounded: pounds matter, but margin at risk and service failure cost matter more.
 - Trust before automation: AI outputs must be explainable, confidence-scored, and easy to challenge.
 
+## Product Shell
+
+Use a tight primary shell:
+
+1. `Control Tower`
+2. `Planning`
+3. `Demand`
+4. `Operations`
+5. `Intelligence`
+6. `Admin`
+
+This shell is intentionally smaller than the eventual object model.
+It keeps the operator experience fast while still leaving room for future buyer, grower, allocation, and workflow depth.
+
+### MVP shell compression
+
+Current MVP data supports:
+
+- crop-week planning
+- shortage and overage exposure
+- unresolved input blockers
+- weekly memo review
+- local operator workflows
+
+Current MVP data does not support:
+
+- true buyer workspaces
+- real plan versions
+- scenario objects
+- approvals
+- weather events
+- grower/site operations
+- workflow persistence
+
+So the MVP UI should compress future complexity into the six modules above rather than expose empty enterprise sections.
+
 ## Core Data Objects
 
 | Object | Purpose | Key Fields | Edited By | Used In |
@@ -129,9 +165,10 @@ Missing product system:
 
 The flagship dashboard should behave like an operating review system for a supply planner and aggregator manager.
 It should not behave like a generic analytics home page.
-Every major panel should answer one of four questions:
+Every major panel should answer one of five questions:
 
-- Where are we exposed?
-- What changed?
-- What decision is due?
-- Who owns the next action?
+- where are we exposed
+- what needs action now
+- what changed in the current review window
+- what decision is due
+- how much should we trust the current signal

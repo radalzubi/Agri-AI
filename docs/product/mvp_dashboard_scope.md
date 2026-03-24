@@ -2,19 +2,21 @@
 
 ## MVP Decision
 
-The current product should ship as a pilot control tower, not a full multi-user platform.
+The dashboard should ship as a local analytical command center for weekly supply-planning review.
 
-That means:
+It should be:
 
 - local first
-- operator-facing
-- weekly planning centered
-- rule-based where possible
-- additive to existing spreadsheets and systems
+- operator facing
+- crop-week driven
+- exception led
+- honest to current pipeline outputs
 
-## Current Data Available In The Repo
+It should not behave like a full platform, ERP, or multi-user workflow engine.
 
-The existing pipeline produces:
+## Current Data Contract
+
+The repo currently supports the dashboard through:
 
 - `gap_analysis.csv`
 - `demand_by_crop_week.csv`
@@ -22,107 +24,108 @@ The existing pipeline produces:
 - `unresolved_skus.csv`
 - `weekly_memo.txt`
 
-This supports a strong planning dashboard, but it does not yet support:
+This supports a serious review workspace, but it does not yet support:
 
 - buyer account pages
-- grower scorecards
-- site-level plans
-- weather-driven risk
-- tasks with persistence
+- grower or site plans
+- weather event models
+- persistent tasks
 - approvals
 - scenario versions
 
 ## MVP Users
 
 - `Supply planner`
-  - primary operator
-  - runs weekly review
 - `Aggregator manager`
-  - reviews top risks and approvals
 - `Executive / owner`
-  - checks pilot value and season health
 - `Data steward`
-  - resolves unresolved SKUs and input quality issues
 
-## MVP Dashboard Modules
+## MVP Command-Center Modules
 
 ### 1. Control Tower
 
-- Purpose: one-screen weekly operating review
-- Current data:
-  - weighted coverage
-  - demand at risk
-  - overage exposure
-  - risk-flagged crop-weeks
-  - unresolved SKU count
-  - memo summary
-- Actions:
-  - open the highest-risk crop-weeks
-  - review recommended actions
-  - export or copy weekly memo
-- Deferred:
-  - approvals
+- purpose: run the weekly planning review from one page
+- must include:
+  - KPI strip
+  - shortage-first action board
+  - overage watch
+  - crop x week exposure heatmap
+  - focused crop-week detail
+  - memo highlights
+  - trust status
+- defer:
   - recent change feed
+  - approvals
   - buyer service confidence
-  - bottleneck ownership
+  - weather watch
 
-### 2. Demand And Coverage
+### 2. Planning
 
-- Purpose: show how expected supply compares to expected demand by crop and week
-- Current data:
-  - demand by crop-week
-  - supply by crop-week
-  - crop-level coverage ratios
-- Actions:
-  - filter by crop and week
-  - inspect season imbalance
-- Deferred:
+- purpose: convert exposure into commitment posture
+- must include:
+  - planning posture buckets
+  - commit-now queue
+  - rebalance queue
+  - crop summary
+  - recommendation logic
+- defer:
+  - editable production plans
+  - plan versions
+  - approvals
+  - scenario compare
+
+### 3. Demand
+
+- purpose: explain demand shape and supply coverage by crop-week
+- must include:
+  - crop-level demand vs supply trend
+  - season weekly balance
+  - crop summary table
+  - crop-week imbalance detail
+- defer:
   - buyer drill-down
-  - demand confidence adjustments
-  - scenario overlays
+  - demand confidence controls
+  - forecast versioning
 
-### 3. Risk Desk
+### 4. Operations
 
-- Purpose: turn gap rows into a usable exception queue
-- Current data:
-  - shortage and overage math
-  - risk flags
-  - unresolved inputs
-- Actions:
-  - filter to risk only
-  - sort by severity
-  - review action queue
-- Deferred:
-  - task assignment persistence
-  - owner routing
-  - approval workflow
+- purpose: support weekly review and handoff
+- must include:
+  - weekly memo
+  - review-pack summary
+  - action handoff
+  - output readiness
+- defer:
+  - harvest board
+  - live logistics tracking
+  - shipment management
 
-### 4. Planning Memo
+### 5. Intelligence
 
-- Purpose: give operators a meeting-ready written output
-- Current data:
-  - weekly memo text
-- Actions:
-  - copy memo
-  - use memo in weekly meeting
-- Deferred:
-  - editable notes
-  - scenario commentary
-  - meeting pack export
+- purpose: keep exceptions and trust issues visible
+- must include:
+  - risk register
+  - unresolved SKU blockers
+  - confidence summary
+  - freshness status
+  - blocker impact notes
+- defer:
+  - anomaly detection
+  - weather-driven alerts
+  - richer confidence scoring
 
-### 5. Data Quality
+### 6. Admin
 
-- Purpose: make trust issues visible before decisions are made
-- Current data:
-  - unresolved SKUs
-  - output file freshness
-- Actions:
-  - review unresolved names
-  - confirm pipeline output freshness
-- Deferred:
+- purpose: keep the local tool understandable and operable
+- must include:
+  - output file status
+  - threshold assumptions
+  - known limits
+  - run instructions
+- defer:
   - import diagnostics
-  - stale grower assumptions
-  - missing buyer fields
+  - threshold editing UI
+  - role management
 
 ## MVP Metrics That Matter
 
@@ -131,39 +134,38 @@ This supports a strong planning dashboard, but it does not yet support:
 - overage pounds above watch threshold
 - count of risk-flagged crop-weeks
 - unresolved SKU count
-- number of recommended actions generated this week
+- count of active recommended actions
 
 ## MVP Design Rules
 
-- Start on the Control Tower, not a raw table.
-- Show what changed and what needs action before showing all data.
-- Use crop-week as the core grain of the dashboard.
-- Treat unresolved inputs as blockers to trust, not as footnotes.
-- Keep filters simple:
+- start on the Control Tower, not on raw tables
+- show what needs action before explanatory charts
+- keep crop-week as the core analytical grain
+- treat unresolved inputs as trust blockers, not footnotes
+- keep filters visible and simple:
   - season
   - crop
   - week range
-  - risk only
-- Do not fake features the data cannot support.
+  - role lens
+- do not fake unsupported product depth
 
 ## Phase 2 Additions
 
-- buyer and account pages
+- buyer and account views
 - grower, farm, and site workspace
-- production plan object with plan versions
-- yield forecasting inputs
-- weather and disruption feed
+- production plan objects and versions
+- weather and disruption register
 - persistent tasks and approvals
-- basic scenario planner
+- scenario comparison
 
 ## Phase 3 Additions
 
-- financial exposure and margin-at-risk layer
-- allocation engine with service-tier rules
-- external grower portal
-- logistics and harvest exception integration
-- full audit trail and role-based access
-- broader analytics and benchmarking
+- financial exposure and margin-at-risk
+- allocation rules and service-tier logic
+- forecast vs actual analytics
+- execution signals
+- audit trail and access controls
+- external collaborator views
 
 ## Do Not Build Yet
 
@@ -171,19 +173,15 @@ This supports a strong planning dashboard, but it does not yet support:
 - route optimization
 - full inventory management
 - buyer marketplace
-- lender or financing products
-- autonomous AI planner
+- lending or financing products
+- autonomous black-box planning
 - mobile app
 - multi-tenant deployment stack
 
 ## Recommended Next Build Steps
 
-1. Upgrade `dashboard.py` into a clearer Control Tower plus risk desk.
-2. Add a crop-week coverage heatmap and action queue derived from current outputs.
-3. Add a thin buyer-level demand view once raw order history is surfaced in the dashboard layer.
-4. Define the first persistent product objects:
-   - buyer
-   - production plan
-   - task
-   - scenario
-5. Add a manual weather and disruption register before attempting automated feeds.
+1. Keep strengthening the command-center shell around real crop-week decisions.
+2. Add persistent task objects only after weekly operating behavior is validated manually.
+3. Add buyer and account drill-down only when raw order history is surfaced cleanly.
+4. Add scenario compare only after there is a real production plan object to compare.
+5. Add weather and disruption tracking only when it can change operator action, not just decorate the UI.
