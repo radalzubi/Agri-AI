@@ -6,7 +6,7 @@ Agri-AI is built around a supplier-side planning problem:
 what should be produced, when, and in what quantity before supply exists.
 
 This is different from warehouse or post-harvest software.
-The system is meant to influence production and commitment decisions upstream.
+The system is meant to influence production and commitment decisions upstream, before supply is fixed.
 
 ## How It Differs From Normal ERP Or Warehouse Systems
 
@@ -31,7 +31,7 @@ Indiana is a strong proving ground for the first pilot because:
 - the region is practical enough to test operator workflows without pretending the market is infinite
 
 The Midwest is not the entire story.
-The initial market should be treated as a specialty-crop coordination wedge, not a broad agriculture claim.
+The initial market should be treated as a specialty-crop coordination wedge, not evidence of a broad agriculture software category.
 
 ## Target Customer Wedge
 
@@ -63,7 +63,7 @@ It should answer:
 - what operator action should happen next
 
 Manual support is acceptable in early pilots.
-The venture does not need heavy AI or full automation to prove value.
+The venture does not need heavy AI or full automation to prove value, and claiming otherwise too early will weaken credibility.
 
 ## Pricing Direction
 
@@ -75,7 +75,7 @@ Practical direction:
 - optional analytics or support fee
 - annual contract only after pilot proof
 
-Pricing range:
+Working pricing range:
 
 - pilot: $5,000 to $15,000
 - annual contract: $12,000 to $40,000
@@ -140,6 +140,7 @@ Start with a narrow, operator-first motion.
 - food hubs and local operators can be budget constrained
 - many existing tools already own adjacent workflow
 - product can bloat if it tries to replace ERP, logistics, and buyer sourcing all at once
+- the operator may view the product as analyst support rather than software unless the workflow becomes repeatable and reusable
 
 ## What Must Be Validated
 

@@ -2,10 +2,10 @@
 
 ## Concept Summary
 
-Agri-AI is an agricultural supply planning venture that helps operators decide what should be produced, when it should be produced, and how much should be committed before inventory exists.
+Agri-AI is an agricultural supply planning venture that helps buyer-facing operators decide what should be produced, when it should be produced, and how much should be committed before inventory exists.
 
 The initial wedge is not generic farm software.
-It is a planning layer for buyer-facing aggregators and produce operators managing multiple growers.
+It is a planning layer for aggregators and produce operators managing multiple growers against recurring buyer demand.
 
 ## Core Problem
 
@@ -70,8 +70,10 @@ Likely early pricing:
 - pilot: $5,000 to $15,000 per season
 - annual contract: $12,000 to $40,000 depending on operator complexity
 
-Longer term:
+Longer term options:
 
 - recurring software revenue
 - optional data products
 - stronger commitment workflows between buyers and grower networks
+
+These are follow-on options, not proof points for the first phase.
