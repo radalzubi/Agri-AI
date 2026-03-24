@@ -67,7 +67,6 @@ def format_week_label(year: int, week_iso: int) -> str:
 
 
 def render_missing_outputs(output_dir: Path, missing_files: List[str]) -> None:
-    st.title("Agri-AI Operator Dashboard")
     st.error(
         "Dashboard inputs are missing. Run the Agri-AI pipeline first, then reopen this dashboard."
     )
@@ -255,7 +254,7 @@ def main() -> None:
 
     risk_table_df = build_risk_table(filtered_gap_df)
     st.dataframe(
-        risk_table_df.style.applymap(style_risk_column, subset=["Risk"]),
+        risk_table_df.style.map(style_risk_column, subset=["Risk"]),
         use_container_width=True,
         hide_index=True,
     )
@@ -289,7 +288,7 @@ def main() -> None:
 
     st.subheader("Weekly Memo")
     render_copy_button(memo_text)
-    st.text_area("Memo", value=memo_text, height=360)
+    st.text_area("Memo", value=memo_text, height=360, label_visibility="collapsed")
 
     if not unresolved_df.empty:
         st.subheader("Unresolved SKUs")
