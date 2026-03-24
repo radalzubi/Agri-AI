@@ -141,3 +141,8 @@ vite.config.ts.timestamp-*
 # Local machine metadata
 .DS_Store
 .claude/
+
+# Agri-AI MVP generated output
+output/
+__pycache__/
+*.pyc
