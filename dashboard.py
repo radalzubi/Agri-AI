@@ -255,7 +255,7 @@ def main() -> None:
     risk_table_df = build_risk_table(filtered_gap_df)
     st.dataframe(
         risk_table_df.style.map(style_risk_column, subset=["Risk"]),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
@@ -282,7 +282,7 @@ def main() -> None:
                 ],
             )
         )
-        st.altair_chart(chart, use_container_width=True)
+        st.altair_chart(chart, width="stretch")
     else:
         st.info("No crop data available yet. Run the pipeline first.")
 
@@ -311,7 +311,7 @@ def main() -> None:
                     "crop_canonical": "Status",
                 }
             ),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
