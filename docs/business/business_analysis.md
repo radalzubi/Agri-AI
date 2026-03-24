@@ -80,6 +80,49 @@ Pricing range:
 - pilot: $5,000 to $15,000
 - annual contract: $12,000 to $40,000
 
+## Pricing Rationale
+
+These numbers are not arbitrary. They need to be anchored to the operator's actual cost of supply failure.
+
+A mid-size operator managing $2M–$4M in annual specialty crop GMV typically experiences:
+
+- 2–5 emergency buy events per season at a 15–25% price premium over planned cost
+- 5–10% of order lines unfilled or substituted in high-demand weeks
+- direct margin loss from overproduction and spoilage in low-demand weeks
+
+Conservative estimate of annual supply mismatch cost for a $2M GMV operator:
+
+- emergency buys: $30,000–$80,000 in excess cost
+- unfilled line revenue loss: $50,000–$150,000 in forgone revenue
+- total visible pain: $80,000–$230,000 per year
+
+At a $10,000 pilot fee, the ask is roughly 4–12% of the pain the pilot is attempting to address.
+That is a reasonable ratio if the operator can see the cost clearly.
+
+The discovery call should surface these numbers explicitly, not assume the operator has already calculated them.
+If the operator cannot articulate their supply failure cost, the pilot pitch will not close.
+
+## The Coordinator Objection
+
+The most common implicit objection: we could just hire a better coordinator or use more spreadsheets.
+
+This must be addressed directly.
+
+A full-time supply coordinator costs $45,000–$70,000 per year in salary plus overhead.
+
+Agri-AI at $12,000–$40,000 per year is not cheaper than a coordinator.
+It is a leverage tool for the coordinator who already exists.
+
+The right framing:
+
+- your coordinator spends most of their time assembling the picture manually, not acting on it
+- Agri-AI compresses the assembly time and surfaces the risk earlier
+- the coordinator's judgment and grower relationships remain essential
+- the output is a coordinator who acts earlier and with better information, not an automated replacement
+
+If the operator has no coordinator and the founder becomes the de facto planning support, that is a services business, not a software business.
+Watch for this pattern in early pilots and design the transition to software-led delivery deliberately.
+
 ## GTM Direction
 
 Start with a narrow, operator-first motion.
