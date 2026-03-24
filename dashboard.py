@@ -478,15 +478,16 @@ def main() -> None:
     if selected_crops:
         filtered = filtered[filtered["crop_canonical"].isin(selected_crops)]
     if risk_only:
-        filtered = filtered[filtered["risk_flag"]]
-    filtered = filtered[filtered["week_iso"].between(week_range[0], week_range[1])]
+        filtered_gap_df = filtered_gap_df[filtered_gap_df["risk_flag"]]
+    filtered_gap_df = filtered_gap_df[
+        filtered_gap_df["week_iso"].between(week_range[0], week_range[1])
+    ]
 
-    risk_table = build_risk_table(filtered)
-    styled = (
-        risk_table.style
-        .apply(_style_row, axis=1)
-        .map(_style_coverage, subset=["Coverage %"])
-        .map(_style_risk_cell, subset=["Risk"])
+    risk_table_df = build_risk_table(filtered_gap_df)
+    st.dataframe(
+        risk_table_df.style.map(style_risk_column, subset=["Risk"]),
+        use_container_width=True,
+        hide_index=True,
     )
     st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -564,8 +565,7 @@ def main() -> None:
     _sec("📝", "Weekly Memo")
     st.markdown('<div class="memo-card">', unsafe_allow_html=True)
     render_copy_button(memo_text)
-    st.markdown("</div>", unsafe_allow_html=True)
-    st.text_area("Memo", value=memo_text, height=340, label_visibility="collapsed")
+    st.text_area("Memo", value=memo_text, height=360, label_visibility="collapsed")
 
     # ── Unresolved SKUs ──
     if not unresolved_df.empty:
