@@ -22,74 +22,122 @@ from dashboard_data import (
 )
 
 
-_BLUE = "#2f6fe4"
-_GREEN = "#2b7a4b"
-_AMBER = "#c27a19"
-_RED = "#b64a3c"
-_INK = "#12202a"
+_BLUE = "#40c4ff"
+_GREEN = "#00e676"
+_AMBER = "#ffab00"
+_RED = "#ff5252"
+_INK = "#e8f0eb"
+_BG = "#111a14"
 
 _CSS = """
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;600&display=swap');
+
 :root {
-    --bg: #eef1ea;
-    --surface: #ffffff;
-    --surface-soft: #f7f8f4;
-    --line: #d6ddd2;
-    --ink: #12202a;
-    --muted: #60707a;
-    --nav: #13271f;
-    --nav-ink: #d7eadf;
-    --green: #2b7a4b;
-    --amber: #c27a19;
-    --red: #b64a3c;
-    --blue: #2f6fe4;
-    --dark: #1d2b34;
+    /* Backgrounds */
+    --bg:           #080f0b;
+    --surface:      #111a14;
+    --surface-mid:  #182314;
+    --surface-hi:   #1e2d1e;
+
+    /* Signal colors */
+    --green:        #00e676;
+    --amber:        #ffab00;
+    --red:          #ff5252;
+    --blue:         #40c4ff;
+
+    /* Signal backgrounds */
+    --green-bg:     rgba(0, 230, 118, 0.08);
+    --amber-bg:     rgba(255, 171, 0, 0.08);
+    --red-bg:       rgba(255, 82, 82, 0.10);
+    --blue-bg:      rgba(64, 196, 255, 0.08);
+
+    /* Text */
+    --ink:          #e8f0eb;
+    --muted:        #7a9383;
+    --faint:        #3d5446;
+
+    /* Borders */
+    --line:         rgba(0, 230, 118, 0.12);
+    --line-bright:  rgba(0, 230, 118, 0.30);
+
+    /* Typography */
+    --font-display: 'Syne', sans-serif;
+    --font-mono:    'IBM Plex Mono', monospace;
+    --font-body:    'DM Sans', system-ui, sans-serif;
 }
 
+/* ── Reset ── */
 html, body, [class*="css"] {
+    font-family: var(--font-body);
     color: var(--ink);
 }
 
-[data-testid="stAppViewContainer"] > .main {
-    background: linear-gradient(180deg, #eef1ea 0%, #f4f6f1 100%);
+/* ── Page ── */
+.stApp,
+[data-testid="stAppViewContainer"] {
+    background: var(--bg) !important;
 }
 
+[data-testid="stAppViewContainer"] > .main {
+    background: var(--bg);
+}
+
+/* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #13271f 0%, #173328 100%) !important;
+    background: #040a06 !important;
+    border-right: 1px solid var(--line) !important;
 }
 
 [data-testid="stSidebar"] section {
-    padding-top: 1.2rem;
+    padding-top: 1rem;
 }
 
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] span {
-    color: var(--nav-ink) !important;
+    color: var(--muted) !important;
     font-size: 0.82rem;
+    font-family: var(--font-body);
 }
 
 [data-testid="stSidebar"] input,
-[data-testid="stSidebar"] select,
-[data-testid="stSidebar"] textarea {
-    background: rgba(255, 255, 255, 0.05) !important;
-    color: #f7fbf8 !important;
-    border: 1px solid rgba(165, 212, 180, 0.28) !important;
-    border-radius: 8px !important;
+[data-testid="stSidebar"] select {
+    background: rgba(0, 230, 118, 0.04) !important;
+    color: var(--ink) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 6px !important;
 }
 
+/* ── Streamlit native dark overrides ── */
+.stSelectbox > div > div,
+.stMultiSelect > div > div {
+    background: var(--surface) !important;
+    color: var(--ink) !important;
+    border-color: var(--line) !important;
+}
+
+[data-testid="stDataFrame"] {
+    border-radius: 8px !important;
+    border: 1px solid var(--line) !important;
+    overflow: hidden;
+}
+
+/* ── Page header ── */
 .shell-title {
-    margin: 0 0 0.1rem 0;
-    color: var(--ink);
-    font-size: 1.85rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0 0 0.1rem 0;
 }
 
 .shell-subtitle {
-    margin: 0 0 1rem 0;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
     color: var(--muted);
-    font-size: 0.92rem;
+    margin: 0 0 1rem 0;
 }
 
 .context-strip,
@@ -100,32 +148,32 @@ html, body, [class*="css"] {
 .detail-card {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    box-shadow: 0 1px 4px rgba(14, 28, 23, 0.05);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
 .context-strip {
-    padding: 1rem 1rem 0.65rem 1rem;
+    padding: 0.9rem 1rem 0.5rem 1rem;
     margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
 .surface-card,
 .briefing-card,
 .confidence-card,
 .detail-card {
-    padding: 1rem 1rem 0.85rem 1rem;
+    padding: 1rem;
 }
 
 .briefing-card.dark {
-    background: linear-gradient(180deg, #203038 0%, #18252d 100%);
-    border-color: #31424a;
-    color: #f3f6f7;
+    background: linear-gradient(180deg, #0d1a10 0%, #091209 100%);
+    border-color: rgba(0, 230, 118, 0.18);
 }
 
 .briefing-card.dark p,
 .briefing-card.dark li,
 .briefing-card.dark span {
-    color: #d8e2e6;
+    color: #a8c9b0;
 }
 
 .panel-head {
@@ -134,88 +182,127 @@ html, body, [class*="css"] {
     justify-content: space-between;
     gap: 0.75rem;
     margin-bottom: 0.85rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--line);
 }
 
 .panel-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
     color: var(--ink);
-    font-size: 0.95rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
     margin: 0;
 }
 
 .panel-caption {
+    font-family: var(--font-body);
     color: var(--muted);
-    font-size: 0.77rem;
-    margin-top: 0.12rem;
+    font-size: 0.75rem;
+    margin-top: 0.1rem;
 }
 
 .micro-label {
+    font-family: var(--font-body);
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.09em;
 }
 
 .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.8rem;
-    margin-bottom: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
 }
 
 .kpi-card {
-    padding: 1rem 1rem 0.8rem 1rem;
+    padding: 0.9rem 1rem 0.75rem 1rem;
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .kpi-value {
-    font-size: 2rem;
-    font-weight: 800;
+    font-family: var(--font-mono);
+    font-size: 2.15rem;
+    font-weight: 700;
     line-height: 1;
     margin-top: 0.4rem;
-    color: var(--ink);
+    letter-spacing: -0.02em;
 }
 
 .tone-green { color: var(--green) !important; }
 .tone-amber { color: var(--amber) !important; }
-.tone-red { color: var(--red) !important; }
-.tone-blue { color: var(--blue) !important; }
-.tone-dark { color: var(--ink) !important; }
+.tone-red   { color: var(--red)   !important; }
+.tone-blue  { color: var(--blue)  !important; }
+.tone-dark  { color: var(--ink)   !important; }
 
 .kpi-sub {
+    font-family: var(--font-body);
     color: var(--muted);
-    font-size: 0.76rem;
-    margin-top: 0.38rem;
+    font-size: 0.73rem;
+    margin-top: 0.35rem;
 }
 
 .status-pill {
     display: inline-block;
-    padding: 0.28rem 0.56rem;
+    padding: 0.22rem 0.55rem;
     border-radius: 999px;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    border: 1px solid;
 }
 
-.status-pill.green { background: #e3f4ea; color: var(--green); }
-.status-pill.amber { background: #fff3da; color: var(--amber); }
-.status-pill.red { background: #fde7e3; color: var(--red); }
-.status-pill.blue { background: #e6eefc; color: var(--blue); }
+.status-pill.green { background: rgba(0,230,118,0.12); color: var(--green); border-color: rgba(0,230,118,0.30); }
+.status-pill.amber { background: rgba(255,171,0,0.12); color: var(--amber); border-color: rgba(255,171,0,0.30); }
+.status-pill.red   { background: rgba(255,82,82,0.12);  color: var(--red);   border-color: rgba(255,82,82,0.30); }
+.status-pill.blue  { background: rgba(64,196,255,0.12); color: var(--blue);  border-color: rgba(64,196,255,0.30); }
+
+/* ── Detail panel ── */
+.detail-card {
+    background: var(--surface-hi);
+    border: 1px solid var(--line-bright);
+    box-shadow: 0 0 0 1px rgba(0,230,118,0.08), 0 4px 20px rgba(0,0,0,0.35);
+}
 
 .action-card {
     border: 1px solid var(--line);
-    border-left-width: 5px;
-    border-radius: 12px;
-    padding: 0.85rem 0.9rem;
-    margin-bottom: 0.7rem;
-    background: #fafbf8;
+    border-left: 3px solid;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.6rem;
+    transition: border-color 0.1s;
 }
 
-.action-card.red { border-left-color: var(--red); }
-.action-card.amber { border-left-color: var(--amber); }
-.action-card.green { border-left-color: var(--green); }
-.action-card.blue { border-left-color: var(--blue); }
+.action-card.red {
+    border-left-color: var(--red);
+    background: var(--red-bg);
+    box-shadow: 0 0 0 1px rgba(255, 82, 82, 0.12),
+                0 4px 16px rgba(255, 82, 82, 0.12);
+}
+
+.action-card.amber {
+    border-left-color: var(--amber);
+    background: var(--amber-bg);
+    box-shadow: 0 0 0 1px rgba(255, 171, 0, 0.10),
+                0 4px 12px rgba(255, 171, 0, 0.10);
+}
+
+.action-card.blue {
+    border-left-color: var(--blue);
+    background: var(--blue-bg);
+}
+
+.action-card.green {
+    border-left-color: var(--green);
+    background: var(--green-bg);
+}
 
 .action-topline {
     display: flex;
@@ -225,28 +312,33 @@ html, body, [class*="css"] {
 }
 
 .action-title {
+    font-family: var(--font-body);
     color: var(--ink);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
 }
 
 .action-meta {
+    font-family: var(--font-mono);
     color: var(--muted);
-    font-size: 0.76rem;
-    margin-bottom: 0.35rem;
+    font-size: 0.72rem;
+    margin-bottom: 0.32rem;
+    letter-spacing: 0.01em;
 }
 
 .action-copy {
+    font-family: var(--font-body);
     color: var(--ink);
-    font-size: 0.84rem;
+    font-size: 0.83rem;
     line-height: 1.45;
     margin-bottom: 0.3rem;
 }
 
 .action-reco {
+    font-family: var(--font-body);
     color: var(--muted);
-    font-size: 0.78rem;
-    line-height: 1.42;
+    font-size: 0.77rem;
+    line-height: 1.4;
 }
 
 .detail-head {
@@ -259,28 +351,30 @@ html, body, [class*="css"] {
 .detail-metrics {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.75rem;
+    gap: 0.65rem;
     margin-bottom: 0.9rem;
 }
 
 .detail-metric {
-    background: var(--surface-soft);
+    background: var(--surface-mid);
     border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 0.65rem 0.75rem;
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
 }
 
 .detail-metric .value {
-    margin-top: 0.25rem;
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-family: var(--font-mono);
+    margin-top: 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--ink);
 }
 
 .dash-footer {
     text-align: center;
-    color: #7d8a92;
-    font-size: 0.75rem;
+    font-family: var(--font-body);
+    color: var(--faint);
+    font-size: 0.72rem;
     padding: 1rem 0 1.5rem 0;
     margin-top: 2rem;
     border-top: 1px solid var(--line);
@@ -316,12 +410,12 @@ def _priority_to_tone(priority: str) -> str:
 def _style_priority_cell(value: object) -> str:
     value_str = str(value)
     if value_str == "Critical":
-        return "background-color: #fde7e3; color: #9f3f33; font-weight: 800;"
+        return "background-color: rgba(255, 82, 82, 0.12); color: #ff5252; font-weight: 800;"
     if value_str in {"High", "Review"}:
-        return "background-color: #fff3da; color: #9c6015; font-weight: 800;"
+        return "background-color: rgba(255, 171, 0, 0.12); color: #ffab00; font-weight: 800;"
     if value_str == "Watch":
-        return "background-color: #e6eefc; color: #2f5db8; font-weight: 800;"
-    return "background-color: #e3f4ea; color: #2b7a4b; font-weight: 700;"
+        return "background-color: rgba(64, 196, 255, 0.12); color: #40c4ff; font-weight: 800;"
+    return "background-color: rgba(0, 230, 118, 0.12); color: #00e676; font-weight: 700;"
 
 
 def _style_coverage_cell(value: object) -> str:
@@ -330,16 +424,16 @@ def _style_coverage_cell(value: object) -> str:
     except (TypeError, ValueError):
         return ""
     if numeric_value >= 100:
-        return "background-color: #e3f4ea; color: #2b7a4b; font-weight: 800;"
+        return "background-color: rgba(0, 230, 118, 0.12); color: #00e676; font-weight: 800;"
     if numeric_value >= 85:
-        return "background-color: #fff3da; color: #9c6015; font-weight: 800;"
-    return "background-color: #fde7e3; color: #9f3f33; font-weight: 800;"
+        return "background-color: rgba(255, 171, 0, 0.12); color: #ffab00; font-weight: 800;"
+    return "background-color: rgba(255, 82, 82, 0.12); color: #ff5252; font-weight: 800;"
 
 
 def _style_issue_cell(value: object) -> str:
     if str(value) == "Shortage":
-        return "background-color: #fde7e3; color: #9f3f33; font-weight: 800;"
-    return "background-color: #fff3da; color: #9c6015; font-weight: 800;"
+        return "background-color: rgba(255, 82, 82, 0.12); color: #ff5252; font-weight: 800;"
+    return "background-color: rgba(255, 171, 0, 0.12); color: #ffab00; font-weight: 800;"
 
 
 def render_missing_outputs(output_dir: Path, missing_files: List[str]) -> None:
@@ -391,23 +485,25 @@ def render_kpi_strip(kpis: Dict[str, Any], confidence: Dict[str, Any]) -> None:
     coverage_tone = "green" if kpis["weighted_coverage"] >= 100 else "amber" if kpis["weighted_coverage"] >= 85 else "red"
     risk_tone = "red" if kpis["risk_weeks"] else "green"
     blocker_tone = confidence["state_tone"]
+
     cards = [
-        ("Weighted Coverage", f"{kpis['weighted_coverage']:.1f}%", coverage_tone, "season-wide supply vs demand"),
-        ("Demand At Risk", f"{kpis['demand_at_risk']:,.0f}", "red" if kpis["demand_at_risk"] > 0 else "green", "shortage lbs in flagged crop-weeks"),
-        ("Overage Exposure", f"{kpis['overage_exposure']:,.0f}", "amber" if kpis["overage_exposure"] > 0 else "green", f"overage lbs above {int(OVERAGE_WATCH_THRESHOLD)}% watch"),
-        ("Risk Weeks", str(kpis["risk_weeks"]), risk_tone, "crop-weeks below the coverage threshold"),
-        ("Trust Blockers", str(kpis["trust_blockers"]), blocker_tone, confidence["state_label"].lower()),
+        ("Weighted Coverage",  f"{kpis['weighted_coverage']:.1f}%", coverage_tone, "season-wide supply vs demand"),
+        ("Demand At Risk",     f"{kpis['demand_at_risk']:,.0f}", "red" if kpis["demand_at_risk"] > 0 else "green", "shortage lbs"),
+        ("Overage Exposure",   f"{kpis['overage_exposure']:,.0f}", "amber" if kpis["overage_exposure"] > 0 else "green", "overage lbs above watch"),
+        ("Risk Weeks",         str(kpis["risk_weeks"]), risk_tone, "crop-weeks below threshold"),
+        ("Trust Blockers",     str(kpis["trust_blockers"]), blocker_tone, confidence["state_label"].lower()),
     ]
-    columns = st.columns(5)
-    for column, (label, value, tone, sub) in zip(columns, cards):
-        column.markdown(
-            "<div class='kpi-card'>"
-            f"<div class='micro-label'>{label}</div>"
-            f"<div class='kpi-value tone-{tone}'>{value}</div>"
-            f"<div class='kpi-sub'>{sub}</div>"
-            "</div>",
-            unsafe_allow_html=True,
-        )
+
+    cards_html = "".join([
+        f"<div class='kpi-card'>"
+        f"<div class='micro-label'>{label}</div>"
+        f"<div class='kpi-value tone-{tone}'>{value}</div>"
+        f"<div class='kpi-sub'>{sub}</div>"
+        f"</div>"
+        for label, value, tone, sub in cards
+    ])
+
+    st.markdown(f"<div class='kpi-grid'>{cards_html}</div>", unsafe_allow_html=True)
 
 
 def _set_focus(row: pd.Series | Dict[str, Any]) -> None:
@@ -449,7 +545,7 @@ def render_action_board(action_queue: pd.DataFrame, max_rows: int = 5) -> None:
 
 
 def _render_dataframe(styled: Any) -> None:
-    st.dataframe(styled, width="stretch", hide_index=True)
+    st.dataframe(styled, use_container_width=True, hide_index=True)
 
 
 def render_shortage_queue(queue_df: pd.DataFrame, title: str = "Commit-now shortages") -> None:
@@ -590,8 +686,8 @@ def render_heatmap(heatmap_df: pd.DataFrame) -> None:
                 "coverage_pct:Q",
                 title="Coverage %",
                 scale=alt.Scale(
-                    domain=[0, 85, 100, 150],
-                    range=["#fde7e3", "#fff3da", "#e3f4ea", "#2b7a4b"],
+                    domain=[0, 75, 100, 150],
+                    range=["#4a1010", "#3a2600", "#0d2e1a", "#00e676"],
                 ),
             ),
             tooltip=[
@@ -604,10 +700,14 @@ def render_heatmap(heatmap_df: pd.DataFrame) -> None:
             ],
         )
         .properties(height=320)
-        .configure_view(strokeWidth=0)
-        .configure_axis(grid=False)
+        .configure_view(strokeWidth=0, fill=_BG)
+        .configure_axis(
+            gridColor="rgba(0,230,118,0.06)",
+            domainColor="rgba(0,230,118,0.12)",
+            labelColor="#7a9383",
+        )
     )
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
 
 
 def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season weekly balance") -> None:
@@ -615,28 +715,60 @@ def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season w
     if balance_df.empty:
         st.info("No weekly balance data is available.")
         return
-    chart = (
-        alt.Chart(balance_df)
-        .mark_line(point=True, strokeWidth=2.5)
-        .encode(
-            x=alt.X("week_label:N", title="Week", sort=None, axis=alt.Axis(labelAngle=-35)),
-            y=alt.Y("pounds:Q", title="Pounds"),
-            color=alt.Color(
-                "series:N",
-                scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
-                title=None,
-            ),
-            tooltip=[
-                alt.Tooltip("week_label:N", title="Week"),
-                alt.Tooltip("series:N", title="Series"),
-                alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
-            ],
-        )
-        .properties(height=260)
-        .configure_view(strokeWidth=0)
-        .configure_axis(gridColor="#e9eee6")
+    base = alt.Chart(balance_df)
+    area = base.mark_area(opacity=0.10, interpolate="monotone").encode(
+        x=alt.X(
+            "week_label:N",
+            title=None,
+            sort=None,
+            axis=alt.Axis(labelAngle=-35, labelFontSize=11, labelColor="#7a9383"),
+        ),
+        y=alt.Y(
+            "pounds:Q",
+            title="Pounds",
+            axis=alt.Axis(labelFontSize=11, labelColor="#7a9383", titleColor="#e8f0eb"),
+        ),
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+            title=None,
+        ),
     )
-    st.altair_chart(chart, width="stretch")
+    line = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
+        x="week_label:N",
+        y="pounds:Q",
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+        ),
+        tooltip=[
+            alt.Tooltip("week_label:N", title="Week"),
+            alt.Tooltip("series:N", title="Series"),
+            alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
+        ],
+    )
+    chart = (
+        (area + line)
+        .properties(
+            height=260,
+            title=alt.TitleParams(
+                text=title,
+                fontSize=12,
+                fontWeight=700,
+                color="#e8f0eb",
+                anchor="start",
+            ),
+        )
+        .configure_view(strokeWidth=0, fill=_BG)
+        .configure_axis(
+            gridColor="rgba(0,230,118,0.06)",
+            domainColor="rgba(0,230,118,0.15)",
+            labelColor="#7a9383",
+            titleColor="#e8f0eb",
+        )
+        .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
+    )
+    st.altair_chart(chart, use_container_width=True)
 
 
 def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_name: str | None) -> None:
@@ -648,28 +780,60 @@ def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_nam
     if chart_df.empty:
         st.info("No chart data is available for the selected crop.")
         return
-    chart = (
-        alt.Chart(chart_df)
-        .mark_line(point=True, strokeWidth=2.5)
-        .encode(
-            x=alt.X("week_label:N", title="Week", sort=None, axis=alt.Axis(labelAngle=-35)),
-            y=alt.Y("pounds:Q", title="Pounds"),
-            color=alt.Color(
-                "series:N",
-                scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
-                title=None,
-            ),
-            tooltip=[
-                alt.Tooltip("week_label:N", title="Week"),
-                alt.Tooltip("series:N", title="Series"),
-                alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
-            ],
-        )
-        .properties(height=300)
-        .configure_view(strokeWidth=0)
-        .configure_axis(gridColor="#e9eee6")
+    base = alt.Chart(chart_df)
+    area = base.mark_area(opacity=0.10, interpolate="monotone").encode(
+        x=alt.X(
+            "week_label:N",
+            title=None,
+            sort=None,
+            axis=alt.Axis(labelAngle=-35, labelFontSize=11, labelColor="#7a9383"),
+        ),
+        y=alt.Y(
+            "pounds:Q",
+            title="Pounds",
+            axis=alt.Axis(labelFontSize=11, labelColor="#7a9383", titleColor="#e8f0eb"),
+        ),
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+            title=None,
+        ),
     )
-    st.altair_chart(chart, width="stretch")
+    line = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
+        x="week_label:N",
+        y="pounds:Q",
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+        ),
+        tooltip=[
+            alt.Tooltip("week_label:N", title="Week"),
+            alt.Tooltip("series:N", title="Series"),
+            alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
+        ],
+    )
+    chart = (
+        (area + line)
+        .properties(
+            height=300,
+            title=alt.TitleParams(
+                text=f"{crop_name} weekly balance",
+                fontSize=12,
+                fontWeight=700,
+                color="#e8f0eb",
+                anchor="start",
+            ),
+        )
+        .configure_view(strokeWidth=0, fill=_BG)
+        .configure_axis(
+            gridColor="rgba(0,230,118,0.06)",
+            domainColor="rgba(0,230,118,0.15)",
+            labelColor="#7a9383",
+            titleColor="#e8f0eb",
+        )
+        .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
+    )
+    st.altair_chart(chart, use_container_width=True)
 
 
 def render_crop_week_table(gap_df: pd.DataFrame, crop_name: str | None) -> None:
@@ -761,18 +925,18 @@ def render_copy_button(memo_text: str) -> None:
     payload = json.dumps(memo_text)
     components.html(
         f"""
-        <div style="margin:0 0 0.6rem 0;font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+        <div style="margin:0 0 0.6rem 0;font-family:'DM Sans',system-ui,sans-serif">
           <button
-            style="padding:0.46rem 1rem;border-radius:8px;border:none;background:#203038;
-                   color:white;font-size:0.82rem;font-weight:700;cursor:pointer;"
+            style="padding:0.46rem 1rem;border-radius:8px;border:1px solid rgba(0,230,118,0.22);
+                   background:#111a14;color:#e8f0eb;font-size:0.82rem;font-weight:700;cursor:pointer;"
             onclick='navigator.clipboard.writeText({payload}).then(()=>{{
               const status=document.getElementById("memo-copy-status");
               status.textContent="Copied";
-              status.style.color="#2b7a4b";
+              status.style.color="#00e676";
               setTimeout(()=>status.textContent="",1800);
             }})'
           >Copy Memo</button>
-          <span id="memo-copy-status" style="margin-left:0.7rem;font-size:0.8rem;color:#60707a"></span>
+          <span id="memo-copy-status" style="margin-left:0.7rem;font-size:0.8rem;color:#7a9383"></span>
         </div>
         """,
         height=48,
