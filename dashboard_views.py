@@ -484,23 +484,25 @@ def render_kpi_strip(kpis: Dict[str, Any], confidence: Dict[str, Any]) -> None:
     coverage_tone = "green" if kpis["weighted_coverage"] >= 100 else "amber" if kpis["weighted_coverage"] >= 85 else "red"
     risk_tone = "red" if kpis["risk_weeks"] else "green"
     blocker_tone = confidence["state_tone"]
+
     cards = [
-        ("Weighted Coverage", f"{kpis['weighted_coverage']:.1f}%", coverage_tone, "season-wide supply vs demand"),
-        ("Demand At Risk", f"{kpis['demand_at_risk']:,.0f}", "red" if kpis["demand_at_risk"] > 0 else "green", "shortage lbs in flagged crop-weeks"),
-        ("Overage Exposure", f"{kpis['overage_exposure']:,.0f}", "amber" if kpis["overage_exposure"] > 0 else "green", f"overage lbs above {int(OVERAGE_WATCH_THRESHOLD)}% watch"),
-        ("Risk Weeks", str(kpis["risk_weeks"]), risk_tone, "crop-weeks below the coverage threshold"),
-        ("Trust Blockers", str(kpis["trust_blockers"]), blocker_tone, confidence["state_label"].lower()),
+        ("Weighted Coverage",  f"{kpis['weighted_coverage']:.1f}%", coverage_tone, "season-wide supply vs demand"),
+        ("Demand At Risk",     f"{kpis['demand_at_risk']:,.0f}", "red" if kpis["demand_at_risk"] > 0 else "green", "shortage lbs"),
+        ("Overage Exposure",   f"{kpis['overage_exposure']:,.0f}", "amber" if kpis["overage_exposure"] > 0 else "green", "overage lbs above watch"),
+        ("Risk Weeks",         str(kpis["risk_weeks"]), risk_tone, "crop-weeks below threshold"),
+        ("Trust Blockers",     str(kpis["trust_blockers"]), blocker_tone, confidence["state_label"].lower()),
     ]
-    columns = st.columns(5)
-    for column, (label, value, tone, sub) in zip(columns, cards):
-        column.markdown(
-            "<div class='kpi-card'>"
-            f"<div class='micro-label'>{label}</div>"
-            f"<div class='kpi-value tone-{tone}'>{value}</div>"
-            f"<div class='kpi-sub'>{sub}</div>"
-            "</div>",
-            unsafe_allow_html=True,
-        )
+
+    cards_html = "".join([
+        f"<div class='kpi-card'>"
+        f"<div class='micro-label'>{label}</div>"
+        f"<div class='kpi-value tone-{tone}'>{value}</div>"
+        f"<div class='kpi-sub'>{sub}</div>"
+        f"</div>"
+        for label, value, tone, sub in cards
+    ])
+
+    st.markdown(f"<div class='kpi-grid'>{cards_html}</div>", unsafe_allow_html=True)
 
 
 def _set_focus(row: pd.Series | Dict[str, Any]) -> None:
