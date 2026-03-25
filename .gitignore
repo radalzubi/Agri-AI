@@ -146,3 +146,6 @@ vite.config.ts.timestamp-*
 output/
 __pycache__/
 *.pyc
+
+# Allow version-controlled Claude agents
+!.claude/agents/

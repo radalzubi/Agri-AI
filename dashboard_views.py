@@ -449,7 +449,7 @@ def render_action_board(action_queue: pd.DataFrame, max_rows: int = 5) -> None:
 
 
 def _render_dataframe(styled: Any) -> None:
-    st.dataframe(styled, width="stretch", hide_index=True)
+    st.dataframe(styled, use_container_width=True, hide_index=True)
 
 
 def render_shortage_queue(queue_df: pd.DataFrame, title: str = "Commit-now shortages") -> None:
@@ -607,7 +607,7 @@ def render_heatmap(heatmap_df: pd.DataFrame) -> None:
         .configure_view(strokeWidth=0)
         .configure_axis(grid=False)
     )
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
 
 
 def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season weekly balance") -> None:
@@ -636,7 +636,7 @@ def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season w
         .configure_view(strokeWidth=0)
         .configure_axis(gridColor="#e9eee6")
     )
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
 
 
 def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_name: str | None) -> None:
@@ -669,7 +669,7 @@ def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_nam
         .configure_view(strokeWidth=0)
         .configure_axis(gridColor="#e9eee6")
     )
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
 
 
 def render_crop_week_table(gap_df: pd.DataFrame, crop_name: str | None) -> None:
