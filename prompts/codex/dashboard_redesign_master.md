@@ -1,239 +1,427 @@
-# Codex: Agri-AI Dashboard Redesign — Master Prompt
+# Codex: Agri-AI Dashboard Redesign — Radical Dark Command Center
 
-## Your Role
+## Your Mandate
 
-You are executing a precision frontend upgrade of the Agri-AI analytical command center.
-You are NOT rebuilding the architecture.
-You are NOT changing data logic.
-You ARE upgrading the visual quality, typography, component consistency, and technical correctness of the dashboard rendering layer.
+This is a radical visual redesign of `dashboard_views.py`.
 
-The target quality bar: a supply planning operator should open this dashboard and feel they are using a purpose-built analytical command center, not a Streamlit prototype.
+You are NOT patching problems.
+You are NOT making incremental improvements.
+You are REPLACING the entire visual system with a dark, high-contrast, analytically serious command center.
+
+The result must look like a purpose-built supply planning instrument — not a Streamlit app.
 
 ---
 
-## Required Reading — Do This Before Any Code Change
-
-Read these files in order:
+## Required Reading — Complete Before Writing Any Code
 
 1. `AGENTS.md`
 2. `docs/product/dashboard_vision.md`
 3. `docs/product/ui_principles.md`
 4. `docs/product/information_architecture.md`
-5. `docs/product/uiux_redesign_brief.md` ← primary specification for this pass
-6. `dashboard_views.py` — the main file you will change
-7. `dashboard_data.py` — read only, do not modify
-8. `dashboard.py` — read only, do not modify
-
-Also consult the project-local subagents in `.claude/agents/` when making decisions:
-- `.claude/agents/uiux-critic.md` — for hierarchy and operator-flow decisions
-- `.claude/agents/design-system-enforcer.md` — for token and typography consistency
-- `.claude/agents/analytics-dashboard-designer.md` — for chart and panel composition
-- `.claude/agents/information-architect.md` — for module structure questions
+5. `docs/product/uiux_redesign_brief.md` ← the complete specification for this redesign
+6. `dashboard_views.py` — the file you will rewrite
+7. `dashboard_data.py` — read only; understand all data contracts
+8. `dashboard.py` — read only; understand orchestration
+9. `.claude/agents/design-system-enforcer.md` — use during implementation
+10. `.claude/agents/analytics-dashboard-designer.md` — use for chart decisions
+11. `.claude/agents/uiux-critic.md` — use for self-review before committing
 
 ---
 
-## Branch and Commit Instructions
+## Branch Instructions
 
-1. Create a new branch: `codex/dashboard-redesign-v2`
-2. All changes go to that branch
-3. Commit at each logical phase (CSS system, typography, cards, charts, bug fixes)
-4. Do not push to main — leave the PR for human review
+Create branch: `codex/dashboard-dark-v1`
 
----
-
-## Phase 1 — Bug Fixes (do first, no visual judgment needed)
-
-These are clear technical correctness fixes. Apply them before touching any visual code.
-
-### Fix 1.1 — Deprecated API: `width="stretch"`
-
-Search `dashboard_views.py` for all instances of:
-```python
-st.dataframe(..., width="stretch", ...)
-st.altair_chart(..., width="stretch")
-```
-
-Replace ALL occurrences with `use_container_width=True`.
-
-Also check `dashboard.py` for the same pattern.
-
-Verify: run `grep -n "width=" dashboard_views.py dashboard.py` and confirm no `width="stretch"` remains.
-
-### Fix 1.2 — Briefing panel dark background
-
-In `dashboard_views.py`, find the CSS rule for `.briefing-card.dark`.
-Change the background to:
-```css
-.briefing-card.dark {
-    background: linear-gradient(180deg, #182a20 0%, #11201a 100%);
-    border-color: #2a4535;
-    color: #e8f4ec;
-}
-.briefing-card.dark p,
-.briefing-card.dark li,
-.briefing-card.dark span {
-    color: #c8e6d3;
-}
-```
-This aligns the briefing card with the sidebar dark green family instead of the disconnected navy.
+Commit at the end of each phase. Do not push to main.
 
 ---
 
-## Phase 2 — Typography System
+## Phase 1 — Gut the Current CSS System
 
-This is the single highest-impact change. Apply it completely before moving on.
+Open `dashboard_views.py`. Find the `_CSS` string variable.
 
-### Step 2.1 — Load custom fonts
-
-At the very top of the `_CSS` string (before `:root`), add:
+**Replace the entire contents of `_CSS`** with the new dark system below. Do not patch. Replace completely.
 
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
-```
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;600&display=swap');
 
-### Step 2.2 — Add font variables to `:root`
-
-```css
 :root {
-    /* ... existing tokens ... */
-    --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    /* Backgrounds */
+    --bg:           #080f0b;
+    --surface:      #111a14;
+    --surface-mid:  #182314;
+    --surface-hi:   #1e2d1e;
+
+    /* Signal colors */
+    --green:        #00e676;
+    --amber:        #ffab00;
+    --red:          #ff5252;
+    --blue:         #40c4ff;
+
+    /* Signal backgrounds */
+    --green-bg:     rgba(0, 230, 118, 0.08);
+    --amber-bg:     rgba(255, 171, 0, 0.08);
+    --red-bg:       rgba(255, 82, 82, 0.10);
+    --blue-bg:      rgba(64, 196, 255, 0.08);
+
+    /* Text */
+    --ink:          #e8f0eb;
+    --muted:        #7a9383;
+    --faint:        #3d5446;
+
+    /* Borders */
+    --line:         rgba(0, 230, 118, 0.12);
+    --line-bright:  rgba(0, 230, 118, 0.30);
+
+    /* Typography */
+    --font-display: 'Syne', sans-serif;
+    --font-mono:    'IBM Plex Mono', monospace;
     --font-body:    'DM Sans', system-ui, sans-serif;
-    --font-mono:    'DM Mono', 'Courier New', monospace;
 }
-```
 
-### Step 2.3 — Apply font families
-
-Add or update these CSS rules:
-
-```css
+/* ── Reset ── */
 html, body, [class*="css"] {
     font-family: var(--font-body);
     color: var(--ink);
 }
 
+/* ── Page ── */
+.stApp,
+[data-testid="stAppViewContainer"] {
+    background: var(--bg) !important;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    background: var(--bg);
+}
+
+/* ── Sidebar ── */
+[data-testid="stSidebar"] {
+    background: #040a06 !important;
+    border-right: 1px solid var(--line) !important;
+}
+
+[data-testid="stSidebar"] section {
+    padding-top: 1rem;
+}
+
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span {
+    color: var(--muted) !important;
+    font-size: 0.82rem;
+    font-family: var(--font-body);
+}
+
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] select {
+    background: rgba(0, 230, 118, 0.04) !important;
+    color: var(--ink) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 6px !important;
+}
+
+/* ── Streamlit native dark overrides ── */
+.stSelectbox > div > div,
+.stMultiSelect > div > div {
+    background: var(--surface) !important;
+    color: var(--ink) !important;
+    border-color: var(--line) !important;
+}
+
+[data-testid="stDataFrame"] {
+    border-radius: 8px !important;
+    border: 1px solid var(--line) !important;
+    overflow: hidden;
+}
+
+/* ── Page header ── */
 .shell-title {
     font-family: var(--font-display);
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0 0 0.1rem 0;
+}
+
+.shell-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0 0 1rem 0;
+}
+
+/* ── KPI strip ── */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
+}
+
+.kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.9rem 1rem 0.75rem 1rem;
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .kpi-value {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
+    font-family: var(--font-mono);
+    font-size: 2.15rem;
+    font-weight: 700;
     line-height: 1;
+    margin-top: 0.4rem;
+    letter-spacing: -0.02em;
 }
+
+.tone-green { color: var(--green) !important; }
+.tone-amber { color: var(--amber) !important; }
+.tone-red   { color: var(--red)   !important; }
+.tone-blue  { color: var(--blue)  !important; }
+.tone-dark  { color: var(--ink)   !important; }
 
 .kpi-sub {
     font-family: var(--font-body);
-    font-size: 0.76rem;
+    font-size: 0.73rem;
+    color: var(--muted);
+    margin-top: 0.35rem;
+}
+
+/* ── Micro-label ── */
+.micro-label {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
     color: var(--muted);
 }
 
-.micro-label {
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
+/* ── Surface cards ── */
+.surface-card,
+.briefing-card,
+.confidence-card,
+.detail-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.briefing-card.dark {
+    background: linear-gradient(180deg, #0d1a10 0%, #091209 100%);
+    border-color: rgba(0, 230, 118, 0.18);
+}
+
+.briefing-card.dark p,
+.briefing-card.dark li,
+.briefing-card.dark span {
+    color: #a8c9b0;
+}
+
+/* ── Context strip ── */
+.context-strip {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.9rem 1rem 0.5rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Panel headers ── */
+.panel-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--line);
 }
 
 .panel-title {
-    font-family: var(--font-body);
-    font-size: 0.94rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
 }
 
 .panel-caption {
     font-family: var(--font-body);
-    font-size: 0.77rem;
+    font-size: 0.75rem;
     color: var(--muted);
+    margin-top: 0.1rem;
 }
 
-/* All data values and coverage percentages use monospace */
-.detail-metric .value,
-.kpi-value {
-    font-family: var(--font-display);
+/* ── Action cards ── */
+.action-card {
+    border: 1px solid var(--line);
+    border-left: 3px solid;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.6rem;
+    transition: border-color 0.1s;
+}
+
+.action-card.red {
+    border-left-color: var(--red);
+    background: var(--red-bg);
+    box-shadow: 0 0 0 1px rgba(255, 82, 82, 0.12),
+                0 4px 16px rgba(255, 82, 82, 0.12);
+}
+
+.action-card.amber {
+    border-left-color: var(--amber);
+    background: var(--amber-bg);
+    box-shadow: 0 0 0 1px rgba(255, 171, 0, 0.10),
+                0 4px 12px rgba(255, 171, 0, 0.10);
+}
+
+.action-card.blue {
+    border-left-color: var(--blue);
+    background: var(--blue-bg);
+}
+
+.action-card.green {
+    border-left-color: var(--green);
+    background: var(--green-bg);
+}
+
+.action-topline {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    margin-bottom: 0.35rem;
+}
+
+.action-title {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.action-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 0.32rem;
+    letter-spacing: 0.01em;
+}
+
+.action-copy {
+    font-family: var(--font-body);
+    font-size: 0.83rem;
+    color: var(--ink);
+    line-height: 1.45;
+    margin-bottom: 0.3rem;
+}
+
+.action-reco {
+    font-family: var(--font-body);
+    font-size: 0.77rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* ── Status pills ── */
+.status-pill {
+    display: inline-block;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    border: 1px solid;
+}
+
+.status-pill.green { background: rgba(0,230,118,0.12); color: var(--green); border-color: rgba(0,230,118,0.30); }
+.status-pill.amber { background: rgba(255,171,0,0.12); color: var(--amber); border-color: rgba(255,171,0,0.30); }
+.status-pill.red   { background: rgba(255,82,82,0.12);  color: var(--red);   border-color: rgba(255,82,82,0.30); }
+.status-pill.blue  { background: rgba(64,196,255,0.12); color: var(--blue);  border-color: rgba(64,196,255,0.30); }
+
+/* ── Detail panel ── */
+.detail-card {
+    background: var(--surface-hi);
+    border: 1px solid var(--line-bright);
+    box-shadow: 0 0 0 1px rgba(0,230,118,0.08), 0 4px 20px rgba(0,0,0,0.35);
+}
+
+.detail-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+}
+
+.detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 0.9rem;
+}
+
+.detail-metric {
+    background: var(--surface-mid);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+}
+
+.detail-metric .value {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 0.2rem;
+}
+
+/* ── Footer ── */
+.dash-footer {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    color: var(--faint);
+    padding: 1rem 0 1.5rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--line);
 }
 ```
 
 ---
 
-## Phase 3 — Card Surface System
+## Phase 2 — KPI Strip: Render as Single HTML Block
 
-### Step 3.1 — Strengthen base card shadow
+Replace the `render_kpi_strip()` function body.
 
-Find the shared card CSS block. Replace or augment the `box-shadow`:
-
-```css
-.surface-card,
-.kpi-card,
-.briefing-card,
-.confidence-card,
-.detail-card {
-    background: #fafcf9;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    box-shadow:
-        0 1px 3px rgba(14, 28, 23, 0.04),
-        0 4px 12px rgba(14, 28, 23, 0.06);
-}
-```
-
-### Step 3.2 — Severity-differentiated action cards
-
-Replace the current `.action-card` rules with:
-
-```css
-.action-card {
-    border: 1px solid var(--line);
-    border-left-width: 4px;
-    border-radius: 12px;
-    padding: 0.9rem 1rem;
-    margin-bottom: 0.7rem;
-    transition: box-shadow 0.12s;
-}
-
-.action-card:hover {
-    box-shadow: 0 4px 14px rgba(14, 28, 23, 0.10);
-}
-
-.action-card.red {
-    border-left-color: var(--red);
-    background: #fff5f4;
-    box-shadow: 0 2px 8px rgba(182, 74, 60, 0.08);
-}
-
-.action-card.amber {
-    border-left-color: var(--amber);
-    background: #fff9f2;
-    box-shadow: 0 2px 8px rgba(194, 122, 25, 0.07);
-}
-
-.action-card.blue {
-    border-left-color: var(--blue);
-    background: #f4f8fe;
-}
-
-.action-card.green {
-    border-left-color: var(--green);
-    background: #f3fbf6;
-}
-```
-
-### Step 3.3 — KPI card equal height via HTML grid
-
-Replace the `render_kpi_strip()` function's column-based rendering with a single `st.markdown()` block using an inline grid. Build the HTML in one call:
+The current version uses `st.columns(5)` which gives uneven card heights.
+The new version renders all 5 KPI cards as one `st.markdown()` HTML block using the `.kpi-grid` CSS class.
 
 ```python
 def render_kpi_strip(kpis: Dict[str, Any], confidence: Dict[str, Any]) -> None:
-    # ... compute tones and values ...
-    
+    coverage_tone = "green" if kpis["weighted_coverage"] >= 100 else "amber" if kpis["weighted_coverage"] >= 85 else "red"
+    risk_tone = "red" if kpis["risk_weeks"] else "green"
+    blocker_tone = confidence["state_tone"]
+
+    cards = [
+        ("Weighted Coverage",  f"{kpis['weighted_coverage']:.1f}%",     coverage_tone, "season-wide supply vs demand"),
+        ("Demand At Risk",     f"{kpis['demand_at_risk']:,.0f}",         "red" if kpis["demand_at_risk"] > 0 else "green", "shortage lbs"),
+        ("Overage Exposure",   f"{kpis['overage_exposure']:,.0f}",       "amber" if kpis["overage_exposure"] > 0 else "green", "overage lbs above watch"),
+        ("Risk Weeks",         str(kpis["risk_weeks"]),                   risk_tone, "crop-weeks below threshold"),
+        ("Trust Blockers",     str(kpis["trust_blockers"]),               blocker_tone, confidence["state_label"].lower()),
+    ]
+
     cards_html = "".join([
         f"<div class='kpi-card'>"
         f"<div class='micro-label'>{label}</div>"
@@ -242,57 +430,43 @@ def render_kpi_strip(kpis: Dict[str, Any], confidence: Dict[str, Any]) -> None:
         f"</div>"
         for label, value, tone, sub in cards
     ])
-    
-    st.markdown(
-        f"<div class='kpi-grid'>{cards_html}</div>",
-        unsafe_allow_html=True,
-    )
+
+    st.markdown(f"<div class='kpi-grid'>{cards_html}</div>", unsafe_allow_html=True)
 ```
-
-And add a real CSS grid definition for `.kpi-grid`:
-
-```css
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.8rem;
-    margin-bottom: 1.1rem;
-    align-items: stretch;
-}
-
-.kpi-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 96px;
-    padding: 0.9rem 1rem 0.75rem 1rem;
-}
-```
-
-This ensures equal card heights regardless of value length.
 
 ---
 
-## Phase 4 — Chart Upgrades
+## Phase 3 — Charts: Dark Theme + Area Fills
 
-### Step 4.1 — Weekly balance: line → area
+### 3.1 — Python color constants at top of file
 
-In `render_weekly_balance_chart()`, replace `mark_line` with a layered area + line:
+Replace the existing color constants:
+```python
+_BLUE  = "#40c4ff"
+_GREEN = "#00e676"
+_AMBER = "#ffab00"
+_RED   = "#ff5252"
+_INK   = "#e8f0eb"
+_BG    = "#111a14"
+```
+
+### 3.2 — Weekly balance chart: area + line layers
+
+Replace `render_weekly_balance_chart()` chart construction:
 
 ```python
 base = alt.Chart(balance_df)
 
-area_layer = base.mark_area(opacity=0.12, interpolate="monotone").encode(
-    x=alt.X("week_label:N", title="Week", sort=None,
-             axis=alt.Axis(labelAngle=-35, labelFontSize=11)),
+area = base.mark_area(opacity=0.10, interpolate="monotone").encode(
+    x=alt.X("week_label:N", title=None, sort=None,
+             axis=alt.Axis(labelAngle=-35, labelFontSize=11, labelColor="#7a9383")),
     y=alt.Y("pounds:Q", title="Pounds",
-             axis=alt.Axis(labelFontSize=11)),
+             axis=alt.Axis(labelFontSize=11, labelColor="#7a9383", titleColor="#e8f0eb")),
     color=alt.Color("series:N",
-        scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
-        title=None),
+        scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]), title=None),
 )
 
-line_layer = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
+line = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
     x="week_label:N",
     y="pounds:Q",
     color=alt.Color("series:N",
@@ -305,48 +479,65 @@ line_layer = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
 )
 
 chart = (
-    (area_layer + line_layer)
-    .properties(height=260)
-    .configure_view(strokeWidth=0)
-    .configure_axis(gridColor="#eff1ed", gridOpacity=1, domainColor="#d6ddd2",
-                    labelColor="#60707a", titleColor="#12202a")
+    (area + line)
+    .properties(height=260, title=alt.TitleParams(
+        text=title, fontSize=12, fontWeight=700, color="#e8f0eb", anchor="start"
+    ))
+    .configure_view(strokeWidth=0, fill=_BG)
+    .configure_axis(gridColor="rgba(0,230,118,0.06)", domainColor="rgba(0,230,118,0.15)",
+                    labelColor="#7a9383", titleColor="#e8f0eb")
+    .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
 )
+st.altair_chart(chart, use_container_width=True)
 ```
 
-Apply the same pattern to `render_crop_chart()`.
+Apply identical pattern to `render_crop_chart()`.
 
-### Step 4.2 — Chart title consistency
+### 3.3 — Heatmap: dark-mode color scale
 
-All charts must use:
+In `render_heatmap()`, update the color scale:
+
 ```python
-.properties(
-    title=alt.TitleParams(
-        text="Chart title here",
-        fontSize=13, fontWeight=700,
-        color="#12202a", anchor="start",
+color=alt.Color(
+    "coverage_pct:Q",
+    title="Coverage %",
+    scale=alt.Scale(
+        domain=[0, 75, 100, 150],
+        range=["#4a1010", "#3a2600", "#0d2e1a", "#00e676"],
     ),
-    height=<height>,
-)
+),
 ```
 
-### Step 4.3 — Heatmap tooltip enhancement
+Set heatmap chart background:
+```python
+.configure_view(strokeWidth=0, fill=_BG)
+.configure_axis(gridColor="rgba(0,230,118,0.06)", domainColor="rgba(0,230,118,0.12)",
+                labelColor="#7a9383")
+```
 
-Add `alt.Tooltip("severity:N", title="Signal")` to the heatmap tooltip list if not already present.
-Verify the heatmap uses `use_container_width=True`.
+### 3.4 — Grouped bar chart (if used): dark mode bars
+
+If there are any `mark_bar()` charts, add:
+```python
+.configure_view(strokeWidth=0, fill=_BG)
+```
+and update color ranges to `[_BLUE, _GREEN]`.
 
 ---
 
-## Phase 5 — Sidebar Polish
+## Phase 4 — Sidebar Brand Mark
 
-In `dashboard.py`, enhance the sidebar brand section:
+In `dashboard.py`, find the sidebar heading `st.sidebar.markdown(...)` block.
 
+Replace with:
 ```python
 st.sidebar.markdown(
-    "<div style='padding:0.5rem 0 1.2rem 0; border-bottom: 1px solid rgba(165,212,180,0.2); margin-bottom:1rem'>"
-    "<div style='font-family:\"Barlow Condensed\",sans-serif; font-size:1.35rem; font-weight:800; "
-    "color:#86efac; letter-spacing:-0.01em; line-height:1'>AGRI-AI</div>"
-    "<div style='font-size:0.72rem; color:#6aab82; font-weight:500; margin-top:0.2rem'>"
-    "Supply planning command center</div>"
+    "<div style='padding:0.4rem 0 1.4rem 0; border-bottom:1px solid rgba(0,230,118,0.15); margin-bottom:1.2rem'>"
+    "<div style=\"font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; "
+    "color:#00e676; letter-spacing:-0.02em; line-height:1\">AGRI-AI</div>"
+    "<div style='font-size:0.7rem; color:#3d5446; font-weight:500; margin-top:0.3rem; "
+    "font-family:DM Sans,sans-serif; text-transform:uppercase; letter-spacing:0.08em'>"
+    "Supply Planning Command Center</div>"
     "</div>",
     unsafe_allow_html=True,
 )
@@ -354,83 +545,76 @@ st.sidebar.markdown(
 
 ---
 
-## Phase 6 — Panel Head Hierarchy
+## Phase 5 — Fix All Deprecated APIs
 
-The current `render_panel_header()` uses identical visual weight for all panels.
-Add a `level` parameter: `"primary"` (Control Tower action board, heatmap) vs `"secondary"` (default all others).
+Search for and replace:
+- `width="stretch"` → `use_container_width=True` in every `st.dataframe()` and `st.altair_chart()` call
+- `st.dataframe(styled, width="stretch", hide_index=True)` → `st.dataframe(styled, use_container_width=True, hide_index=True)`
 
-```python
-def render_panel_header(title: str, caption: str, icon: str = "", level: str = "secondary") -> None:
-    border = "border-bottom: 2px solid var(--line);" if level == "primary" else "border-bottom: 1px solid var(--line);"
-    title_size = "1.05rem" if level == "primary" else "0.94rem"
-    display_title = f"{icon} {title}".strip()
-    st.markdown(
-        f"<div class='panel-head' style='{border} padding-bottom:0.65rem; margin-bottom:0.9rem'>"
-        f"<div><div class='panel-title' style='font-size:{title_size}'>{display_title}</div>"
-        f"<div class='panel-caption'>{caption}</div></div>"
-        "</div>",
-        unsafe_allow_html=True,
-    )
-```
-
-Call `render_panel_header(..., level="primary")` for:
-- "What Needs Action Now" in Control Tower
-- "Exposure Map" heatmap
-- "Weekly Review Memo" in Operations
+Verify: `grep -n 'width="stretch"' dashboard_views.py dashboard.py` must return nothing.
 
 ---
 
-## Phase 7 — Final Verification Checklist
+## Phase 6 — Self-Review Against Subagents
 
-After all phases are complete, verify each item:
+Before committing, use the `.claude/agents/uiux-critic.md` checklist mentally:
 
-- [ ] `grep -c "width=\"stretch\"" dashboard_views.py dashboard.py` returns 0
-- [ ] `grep -c "@import" dashboard_views.py` returns 1 (the Google Fonts import)
-- [ ] `.briefing-card.dark` background uses `#182a20` family (not `#203038`)
-- [ ] `.action-card.red` has `background: #fff5f4` and a red-tinted shadow
-- [ ] `.kpi-grid` CSS is defined with `grid-template-columns: repeat(5, 1fr)`
-- [ ] `render_kpi_strip()` uses a single `st.markdown()` HTML block, not 5 `st.columns()`
-- [ ] Weekly balance chart uses `mark_area` + `mark_line` layer
-- [ ] All `st.altair_chart()` calls use `use_container_width=True`
-- [ ] Sidebar has the Barlow Condensed brand mark
-- [ ] `render_panel_header()` accepts `level` parameter
+**Required passes:**
+- [ ] No `width="stretch"` anywhere
+- [ ] `@import` for Google Fonts present at top of CSS
+- [ ] `.kpi-value` uses `var(--font-mono)` — IBM Plex Mono
+- [ ] `.shell-title` uses `var(--font-display)` — Syne
+- [ ] Page background is `#080f0b` (dark, not light)
+- [ ] `.action-card.red` has `box-shadow` with red glow
+- [ ] `.status-pill` uses monospace font
+- [ ] Heatmap color scale includes `#4a1010` as the critical shortage color
+- [ ] Weekly balance chart uses `mark_area` + `mark_line` layers
+- [ ] `render_kpi_strip()` uses `st.markdown()` single block, not `st.columns()`
+- [ ] Briefing card dark background is `#0d1a10` family (not `#203038`)
 
-Run:
+---
+
+## Phase 7 — Test and Commit
+
 ```bash
 source .venv/bin/activate
 python3 -m src.main --data-dir data --output-dir output
 streamlit run dashboard.py
 ```
 
-Open http://localhost:8501 and verify:
-1. Barlow Condensed renders visibly in KPI values and page title
-2. Action cards have distinct background tints per severity
-3. No browser console warnings about deprecated APIs
-4. Weekly balance chart shows area fills, not just lines
-5. The briefing panel dark background matches the sidebar green family
+Open http://localhost:8501 and verify visually:
+1. Page background is dark — near-black forest green
+2. AGRI-AI brand mark in Syne 800, green, visible at top of sidebar
+3. KPI values render in IBM Plex Mono — the monospace feel should be obvious
+4. At least one KPI value is in vivid `#ff5252` or `#00e676`
+5. Action card with red left border has a visible red glow shadow
+6. Weekly balance chart shows area fills, not just lines
+7. Heatmap has dark red for critical shortage cells
+
+Write final commit summary to `prompts/codex/dashboard_dark_v1_summary.md`.
 
 ---
 
-## Constraints — Do Not Violate
+## What Not To Do
 
+- Do NOT keep the light green `#eef1ea` background
+- Do NOT keep the light card borders — they belong to the old system
+- Do NOT use `st.columns()` for the KPI strip
+- Do NOT use `mark_line` alone without area fill layer
 - Do NOT change `dashboard_data.py`
-- Do NOT change `dashboard.py` beyond the sidebar brand mark (Phase 5)
-- Do NOT add new Python packages to `requirements.txt`
-- Do NOT change the six-module structure
-- Do NOT add new views or panels not already in the current implementation
-- Do NOT add scenario, buyer, or weather panels
-- Do NOT use JavaScript beyond what's already in `render_copy_button()`
-- Do NOT remove the existing color token system — extend it
+- Do NOT add new modules, panels, or features
+- Do NOT add new Python packages
 
 ---
 
 ## Definition of Done
 
-The redesign pass is complete when:
-1. All seven phases above are done
-2. The verification checklist passes
-3. The dashboard runs cleanly on `streamlit run dashboard.py`
-4. Branch `codex/dashboard-redesign-v2` has clean commits by phase
-5. A summary of what changed is written to `prompts/codex/dashboard_redesign_v2_summary.md`
-
-If you find additional clear bugs during the pass (wrong Altair API usage, missing error handling, visual inconsistencies not listed above), fix them and document in the summary. Do not use this permission to expand scope.
+The redesign is complete when:
+1. The page background is dark
+2. Typography is Syne + IBM Plex Mono + DM Sans throughout
+3. KPI values are monospace and vivid-colored
+4. Action cards glow by severity in dark mode
+5. Charts are dark-mode themed with area fills
+6. All deprecated APIs removed
+7. Dashboard runs cleanly: `streamlit run dashboard.py`
+8. Branch `codex/dashboard-dark-v1` has clean commits by phase
