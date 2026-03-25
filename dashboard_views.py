@@ -22,11 +22,12 @@ from dashboard_data import (
 )
 
 
-_BLUE = "#2f6fe4"
-_GREEN = "#2b7a4b"
-_AMBER = "#c27a19"
-_RED = "#b64a3c"
-_INK = "#12202a"
+_BLUE = "#40c4ff"
+_GREEN = "#00e676"
+_AMBER = "#ffab00"
+_RED = "#ff5252"
+_INK = "#e8f0eb"
+_BG = "#111a14"
 
 _CSS = """
 <style>
@@ -409,12 +410,12 @@ def _priority_to_tone(priority: str) -> str:
 def _style_priority_cell(value: object) -> str:
     value_str = str(value)
     if value_str == "Critical":
-        return "background-color: #fde7e3; color: #9f3f33; font-weight: 800;"
+        return "background-color: rgba(255, 82, 82, 0.12); color: #ff5252; font-weight: 800;"
     if value_str in {"High", "Review"}:
-        return "background-color: #fff3da; color: #9c6015; font-weight: 800;"
+        return "background-color: rgba(255, 171, 0, 0.12); color: #ffab00; font-weight: 800;"
     if value_str == "Watch":
-        return "background-color: #e6eefc; color: #2f5db8; font-weight: 800;"
-    return "background-color: #e3f4ea; color: #2b7a4b; font-weight: 700;"
+        return "background-color: rgba(64, 196, 255, 0.12); color: #40c4ff; font-weight: 800;"
+    return "background-color: rgba(0, 230, 118, 0.12); color: #00e676; font-weight: 700;"
 
 
 def _style_coverage_cell(value: object) -> str:
@@ -423,16 +424,16 @@ def _style_coverage_cell(value: object) -> str:
     except (TypeError, ValueError):
         return ""
     if numeric_value >= 100:
-        return "background-color: #e3f4ea; color: #2b7a4b; font-weight: 800;"
+        return "background-color: rgba(0, 230, 118, 0.12); color: #00e676; font-weight: 800;"
     if numeric_value >= 85:
-        return "background-color: #fff3da; color: #9c6015; font-weight: 800;"
-    return "background-color: #fde7e3; color: #9f3f33; font-weight: 800;"
+        return "background-color: rgba(255, 171, 0, 0.12); color: #ffab00; font-weight: 800;"
+    return "background-color: rgba(255, 82, 82, 0.12); color: #ff5252; font-weight: 800;"
 
 
 def _style_issue_cell(value: object) -> str:
     if str(value) == "Shortage":
-        return "background-color: #fde7e3; color: #9f3f33; font-weight: 800;"
-    return "background-color: #fff3da; color: #9c6015; font-weight: 800;"
+        return "background-color: rgba(255, 82, 82, 0.12); color: #ff5252; font-weight: 800;"
+    return "background-color: rgba(255, 171, 0, 0.12); color: #ffab00; font-weight: 800;"
 
 
 def render_missing_outputs(output_dir: Path, missing_files: List[str]) -> None:
@@ -685,8 +686,8 @@ def render_heatmap(heatmap_df: pd.DataFrame) -> None:
                 "coverage_pct:Q",
                 title="Coverage %",
                 scale=alt.Scale(
-                    domain=[0, 85, 100, 150],
-                    range=["#fde7e3", "#fff3da", "#e3f4ea", "#2b7a4b"],
+                    domain=[0, 75, 100, 150],
+                    range=["#4a1010", "#3a2600", "#0d2e1a", "#00e676"],
                 ),
             ),
             tooltip=[
@@ -699,8 +700,12 @@ def render_heatmap(heatmap_df: pd.DataFrame) -> None:
             ],
         )
         .properties(height=320)
-        .configure_view(strokeWidth=0)
-        .configure_axis(grid=False)
+        .configure_view(strokeWidth=0, fill=_BG)
+        .configure_axis(
+            gridColor="rgba(0,230,118,0.06)",
+            domainColor="rgba(0,230,118,0.12)",
+            labelColor="#7a9383",
+        )
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -710,26 +715,58 @@ def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season w
     if balance_df.empty:
         st.info("No weekly balance data is available.")
         return
+    base = alt.Chart(balance_df)
+    area = base.mark_area(opacity=0.10, interpolate="monotone").encode(
+        x=alt.X(
+            "week_label:N",
+            title=None,
+            sort=None,
+            axis=alt.Axis(labelAngle=-35, labelFontSize=11, labelColor="#7a9383"),
+        ),
+        y=alt.Y(
+            "pounds:Q",
+            title="Pounds",
+            axis=alt.Axis(labelFontSize=11, labelColor="#7a9383", titleColor="#e8f0eb"),
+        ),
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+            title=None,
+        ),
+    )
+    line = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
+        x="week_label:N",
+        y="pounds:Q",
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+        ),
+        tooltip=[
+            alt.Tooltip("week_label:N", title="Week"),
+            alt.Tooltip("series:N", title="Series"),
+            alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
+        ],
+    )
     chart = (
-        alt.Chart(balance_df)
-        .mark_line(point=True, strokeWidth=2.5)
-        .encode(
-            x=alt.X("week_label:N", title="Week", sort=None, axis=alt.Axis(labelAngle=-35)),
-            y=alt.Y("pounds:Q", title="Pounds"),
-            color=alt.Color(
-                "series:N",
-                scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
-                title=None,
+        (area + line)
+        .properties(
+            height=260,
+            title=alt.TitleParams(
+                text=title,
+                fontSize=12,
+                fontWeight=700,
+                color="#e8f0eb",
+                anchor="start",
             ),
-            tooltip=[
-                alt.Tooltip("week_label:N", title="Week"),
-                alt.Tooltip("series:N", title="Series"),
-                alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
-            ],
         )
-        .properties(height=260)
-        .configure_view(strokeWidth=0)
-        .configure_axis(gridColor="#e9eee6")
+        .configure_view(strokeWidth=0, fill=_BG)
+        .configure_axis(
+            gridColor="rgba(0,230,118,0.06)",
+            domainColor="rgba(0,230,118,0.15)",
+            labelColor="#7a9383",
+            titleColor="#e8f0eb",
+        )
+        .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
     )
     st.altair_chart(chart, use_container_width=True)
 
@@ -743,26 +780,58 @@ def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_nam
     if chart_df.empty:
         st.info("No chart data is available for the selected crop.")
         return
+    base = alt.Chart(chart_df)
+    area = base.mark_area(opacity=0.10, interpolate="monotone").encode(
+        x=alt.X(
+            "week_label:N",
+            title=None,
+            sort=None,
+            axis=alt.Axis(labelAngle=-35, labelFontSize=11, labelColor="#7a9383"),
+        ),
+        y=alt.Y(
+            "pounds:Q",
+            title="Pounds",
+            axis=alt.Axis(labelFontSize=11, labelColor="#7a9383", titleColor="#e8f0eb"),
+        ),
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+            title=None,
+        ),
+    )
+    line = base.mark_line(strokeWidth=2, interpolate="monotone").encode(
+        x="week_label:N",
+        y="pounds:Q",
+        color=alt.Color(
+            "series:N",
+            scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
+        ),
+        tooltip=[
+            alt.Tooltip("week_label:N", title="Week"),
+            alt.Tooltip("series:N", title="Series"),
+            alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
+        ],
+    )
     chart = (
-        alt.Chart(chart_df)
-        .mark_line(point=True, strokeWidth=2.5)
-        .encode(
-            x=alt.X("week_label:N", title="Week", sort=None, axis=alt.Axis(labelAngle=-35)),
-            y=alt.Y("pounds:Q", title="Pounds"),
-            color=alt.Color(
-                "series:N",
-                scale=alt.Scale(domain=["Demand", "Supply"], range=[_BLUE, _GREEN]),
-                title=None,
+        (area + line)
+        .properties(
+            height=300,
+            title=alt.TitleParams(
+                text=f"{crop_name} weekly balance",
+                fontSize=12,
+                fontWeight=700,
+                color="#e8f0eb",
+                anchor="start",
             ),
-            tooltip=[
-                alt.Tooltip("week_label:N", title="Week"),
-                alt.Tooltip("series:N", title="Series"),
-                alt.Tooltip("pounds:Q", title="Pounds", format=",.1f"),
-            ],
         )
-        .properties(height=300)
-        .configure_view(strokeWidth=0)
-        .configure_axis(gridColor="#e9eee6")
+        .configure_view(strokeWidth=0, fill=_BG)
+        .configure_axis(
+            gridColor="rgba(0,230,118,0.06)",
+            domainColor="rgba(0,230,118,0.15)",
+            labelColor="#7a9383",
+            titleColor="#e8f0eb",
+        )
+        .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
     )
     st.altair_chart(chart, use_container_width=True)
 
