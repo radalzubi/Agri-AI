@@ -925,18 +925,18 @@ def render_copy_button(memo_text: str) -> None:
     payload = json.dumps(memo_text)
     components.html(
         f"""
-        <div style="margin:0 0 0.6rem 0;font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+        <div style="margin:0 0 0.6rem 0;font-family:'DM Sans',system-ui,sans-serif">
           <button
-            style="padding:0.46rem 1rem;border-radius:8px;border:none;background:#203038;
-                   color:white;font-size:0.82rem;font-weight:700;cursor:pointer;"
+            style="padding:0.46rem 1rem;border-radius:8px;border:1px solid rgba(0,230,118,0.22);
+                   background:#111a14;color:#e8f0eb;font-size:0.82rem;font-weight:700;cursor:pointer;"
             onclick='navigator.clipboard.writeText({payload}).then(()=>{{
               const status=document.getElementById("memo-copy-status");
               status.textContent="Copied";
-              status.style.color="#2b7a4b";
+              status.style.color="#00e676";
               setTimeout(()=>status.textContent="",1800);
             }})'
           >Copy Memo</button>
-          <span id="memo-copy-status" style="margin-left:0.7rem;font-size:0.8rem;color:#60707a"></span>
+          <span id="memo-copy-status" style="margin-left:0.7rem;font-size:0.8rem;color:#7a9383"></span>
         </div>
         """,
         height=48,
