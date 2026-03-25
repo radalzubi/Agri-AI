@@ -77,11 +77,15 @@ def main() -> None:
     inject_css()
 
     st.sidebar.markdown(
-        "<h2 style='color:#cfe8d7;font-size:1.05rem;font-weight:800;margin:0 0 0.8rem 0'>"
-        "Agri-AI</h2>",
+        "<div style='padding:0.4rem 0 1.4rem 0; border-bottom:1px solid rgba(0,230,118,0.15); margin-bottom:1.2rem'>"
+        "<div style=\"font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; "
+        "color:#00e676; letter-spacing:-0.02em; line-height:1\">AGRI-AI</div>"
+        "<div style='font-size:0.7rem; color:#3d5446; font-weight:500; margin-top:0.3rem; "
+        "font-family:DM Sans,sans-serif; text-transform:uppercase; letter-spacing:0.08em'>"
+        "Supply Planning Command Center</div>"
+        "</div>",
         unsafe_allow_html=True,
     )
-    st.sidebar.caption("Supplier-side planning command center")
 
     output_dir_input = st.sidebar.text_input("Output directory", value="output")
     role_lens = st.sidebar.selectbox(
