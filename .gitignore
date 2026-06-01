@@ -149,3 +149,5 @@ __pycache__/
 
 # Allow version-controlled Claude agents
 !.claude/agents/
+_archive_cleanup_review/
+*.duckdb
