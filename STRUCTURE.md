@@ -33,13 +33,12 @@ successor). Kept as the early prototype / reference.
 | Folder / file | What it is |
 |---|---|
 | `agents/` | Claude agent definitions (dashboard designer, design-system enforcer, information architect, UI/UX critic). |
-| `docs/` | Project docs: `business/`, `pilot/`, `product/`, `research/`. |
+| `docs/` | Project docs: `business/` (incl. the two Agri-AI venture brief PDFs), `pilot/`, `product/`, `research/`. |
 | `data/` | Input data. |
 | `linear/` | Linear (issue tracker) integration. |
 | `prompts/` | Prompt templates. |
 | `requirements.txt` | Python deps: streamlit, pandas, altair. |
 | `AGENTS.md`, `README.md` | Project notes. |
-| `Agri-AI Venture Feasibility Brief.pdf`, `agri-ai-brief.pdf` | Venture briefs. |
 | `harvestmind.duckdb` | Small local DB (12K). |
 
 ---
