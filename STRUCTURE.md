@@ -10,7 +10,6 @@ retired to `archive/`.
 |---|---|
 | `README.md`, `AGENTS.md`, `STRUCTURE.md` | Project notes + this map. |
 | `requirements.txt` | Python deps (streamlit only needed by the archived dashboard). |
-| `harvestmind.duckdb` | Small local DB (gitignored). |
 
 ## The 6 folders
 
