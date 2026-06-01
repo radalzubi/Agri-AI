@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterable, List
 
-from config import COVERAGE_THRESHOLD
+from src.config import COVERAGE_THRESHOLD
 from src.aggregate import aggregate_demand, aggregate_supply
 from src.gap import build_gap_analysis
 from src.ingest import InputFileMissingError, load_grower_capacity, load_order_history, load_sku_lookup

@@ -1,67 +1,38 @@
 # wg2 (Agri-AI prototype) — Folder Map
 
-Plain-English guide to what each part of this folder is.
+The original Agri-AI prototype, predecessor to the `harvestmind` repo. The live
+code is a small data pipeline in `src/`. The old Streamlit dashboard has been
+retired to `archive/`.
 
-This is the **original Agri-AI prototype**, the predecessor to the
-`harvestmind` repo (the productized successor). The live code here is a small
-data pipeline in `src/`. The old Streamlit dashboard has been **retired** and
-moved to `archive/` (we no longer use Streamlit).
+## Root (kept minimal)
 
----
-
-## Live code — the pipeline (`src/`)
-
-Run order:
-
-| File | What it does |
+| Item | What it is |
 |---|---|
-| `src/ingest.py` | 1. Load grower capacity, order history, SKU lookup |
-| `src/normalize.py` | 2. Clean and normalize orders |
-| `src/aggregate.py` | 3. Aggregate supply and demand by crop-week |
-| `src/gap.py` | 4. Gap analysis (supply vs demand) |
-| `src/memo.py` | 5. Generate the weekly memo |
-| `src/main.py` | Orchestrates the pipeline (argparse CLI) |
-| `config.py` | Shared config (e.g. `COVERAGE_THRESHOLD`), imported by `src/main.py` |
-| `tests/` | Unit tests for each pipeline stage |
+| `README.md`, `AGENTS.md`, `STRUCTURE.md` | Project notes + this map. |
+| `requirements.txt` | Python deps (streamlit only needed by the archived dashboard). |
+| `harvestmind.duckdb` | Small local DB (gitignored). |
 
-Run it:
+## The 6 folders
+
+| Folder | What's inside |
+|---|---|
+| `src/` | **The live pipeline + config.** Run order: `ingest` → `normalize` → `aggregate` → `gap` → `memo`, orchestrated by `main.py`. `config.py` holds shared settings (e.g. `COVERAGE_THRESHOLD`). |
+| `tests/` | Unit tests for each pipeline stage. |
+| `docs/` | Project docs: `business/` (incl. the 2 Agri-AI venture brief PDFs), `pilot/`, `product/`, `research/`. |
+| `data/` | Input data location for the pipeline. |
+| `workspace/` | AI tooling and notes: `agents/` (agent definitions), `prompts/` (claude + codex prompt templates), `linear/` (issue-tracker notes). |
+| `archive/` | Retired material: `streamlit_dashboard/` (old UI, no longer used), `old_pipeline_outputs/` (gitignored generated outputs), and `CLEANUP_CHANGELOG.md`. |
+
+## Run it
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python -m src.main --help
+python -m pytest        # 23 tests
 ```
 
----
+## Generated (not in git)
 
-## Supporting
-
-| Folder / file | What it is |
-|---|---|
-| `docs/` | Project docs: `business/` (incl. the two Agri-AI venture brief PDFs), `pilot/`, `product/`, `research/`. |
-| `agents/` | Claude agent definitions (dashboard designer, design-system enforcer, information architect, UI/UX critic). |
-| `prompts/` | Prompt templates: `claude/`, `codex/`. |
-| `linear/` | Linear (issue tracker) notes. |
-| `data/` | Input data. |
-| `requirements.txt` | Python deps: streamlit, pandas, altair. (streamlit is only needed by the archived dashboard.) |
-| `AGENTS.md`, `README.md` | Project notes. |
-| `harvestmind.duckdb` | Small local DB (12K). |
-
----
-
-## Archived (retired, kept for reference)
-
-| Folder | What it is |
-|---|---|
-| `archive/streamlit_dashboard/` | The old Streamlit UI (`dashboard.py`, `dashboard_data.py`, `dashboard_views.py`). No longer used. Preserved in git history; not part of the live pipeline. |
-| `_archive_cleanup_review/` | Old generated outputs from the cleanup pass (gitignored). See `CLEANUP_CHANGELOG.md` inside. |
-
----
-
-## What gets generated (not in git, safe to delete)
-
-| Item | Regenerate with |
-|---|---|
-| `.venv/` | `python3 -m venv .venv && pip install -r requirements.txt` |
-| `__pycache__/`, `.pytest_cache/` | run code / tests |
-| `harvestmind.duckdb` | re-run the pipeline |
+`.venv/`, `__pycache__/`, `.pytest_cache/`, `harvestmind.duckdb`,
+`archive/old_pipeline_outputs/` — all regenerable.
