@@ -144,6 +144,10 @@ vite.config.ts.timestamp-*
 
 # Agri-AI MVP generated output
 output/
+
+# Pipeline inputs are real buyer and grower data; keep them local
+data/*
+!data/.gitkeep
 __pycache__/
 *.pyc
 
