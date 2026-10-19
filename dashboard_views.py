@@ -9,7 +9,6 @@ from typing import Any, Dict, List
 import altair as alt
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 
 from dashboard_data import (
     MODULE_CAPTIONS,
@@ -540,12 +539,12 @@ def render_action_board(action_queue: pd.DataFrame, max_rows: int = 5) -> None:
                 key=f"action-focus-{row['action_type']}-{row['crop_canonical']}-{row['year']}-{row['week_iso']}",
                 on_click=_set_focus,
                 args=(row,),
-                use_container_width=True,
+                width="stretch",
             )
 
 
 def _render_dataframe(styled: Any) -> None:
-    st.dataframe(styled, use_container_width=True, hide_index=True)
+    st.dataframe(styled, width="stretch", hide_index=True)
 
 
 def render_shortage_queue(queue_df: pd.DataFrame, title: str = "Commit-now shortages") -> None:
@@ -707,7 +706,7 @@ def render_heatmap(heatmap_df: pd.DataFrame) -> None:
             labelColor="#7a9383",
         )
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 
 def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season weekly balance") -> None:
@@ -768,7 +767,7 @@ def render_weekly_balance_chart(balance_df: pd.DataFrame, title: str = "Season w
         )
         .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 
 def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_name: str | None) -> None:
@@ -833,7 +832,7 @@ def render_crop_chart(demand_df: pd.DataFrame, supply_df: pd.DataFrame, crop_nam
         )
         .configure_legend(labelColor="#e8f0eb", titleColor="#7a9383", labelFontSize=11)
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 
 def render_crop_week_table(gap_df: pd.DataFrame, crop_name: str | None) -> None:
@@ -923,7 +922,7 @@ def render_output_status(status_df: pd.DataFrame) -> None:
 
 def render_copy_button(memo_text: str) -> None:
     payload = json.dumps(memo_text)
-    components.html(
+    st.iframe(
         f"""
         <div style="margin:0 0 0.6rem 0;font-family:'DM Sans',system-ui,sans-serif">
           <button
