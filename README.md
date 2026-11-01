@@ -1,5 +1,20 @@
 # Agri-AI
 
+[![CI](https://github.com/radalzubi/Agri-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/radalzubi/Agri-AI/actions/workflows/ci.yml)
+
+**Turn buyer order history and grower capacity into a crop-by-week supply-gap report.**
+
+Built by [Rad AlZubi](https://github.com/radalzubi). I implemented the Python planning pipeline and Streamlit dashboard. This is the earlier agricultural planning project that preceded ZAAD.
+
+The workflow ingests CSVs, normalizes product names, aggregates demand and supply, flags shortfalls, and produces a weekly memo. It makes a narrow operational decision visible before a larger planning system is introduced.
+
+**Stage:** local planning MVP. The current pipeline performs aggregation and rule-based gap analysis; it does not establish predictive AI performance or customer savings.
+
+**Start here:** [pipeline](src/main.py) · [gap analysis](src/gap.py) · [dashboard](dashboard.py) · [tests](tests/)
+
+---
+
+
 Agri-AI is an agricultural supply planning venture focused on one narrow problem:
 helping buyer-facing agricultural operators decide what to produce, when to produce it, and how much to commit before inventory exists.
 
